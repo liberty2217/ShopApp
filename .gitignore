@@ -36,6 +36,16 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
+
+# custom UBE
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
 # BUCK
 buck-out/
 \.buckd/
