@@ -12,6 +12,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const s = StyleSheet.create({
   gestureWrapper: { flex: 1 },
@@ -19,13 +20,13 @@ const s = StyleSheet.create({
 
 const App = () => {
   return (
-    <GestureHandlerRootView style={s.gestureWrapper}>
-      <NavigationContainer>
-        <SafeAreaView>
+    <SafeAreaProvider>
+      <GestureHandlerRootView style={s.gestureWrapper}>
+        <NavigationContainer>
           <Text>123</Text>
-        </SafeAreaView>
-      </NavigationContainer>
-    </GestureHandlerRootView>
+        </NavigationContainer>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 };
 
