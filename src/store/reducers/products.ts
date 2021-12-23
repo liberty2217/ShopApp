@@ -2,9 +2,9 @@ import { PRODUCTS } from '../../data/dummy-data';
 
 const initialState = {
   availableProducts: PRODUCTS,
-  useProducts: PRODUCTS.filter(product => product.id === 'u1'),
+  useProducts: PRODUCTS.filter((product) => product.id === 'u1'),
 };
 
-export const products = (state = initialState, action) => {
+export const productsReducer = (state = initialState, action) => {
   return state;
 };

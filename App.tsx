@@ -15,8 +15,14 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { combineReducers, createStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import { productsReducer } from './src/store/reducers/products';
+import { ShopNavigator } from './src/navigation/ShopNavigator';
 
-// const rootReducer = combineReducers();
+const rootReducer = combineReducers({
+  products: productsReducer,
+});
+
+const store = createStore(rootReducer);
 
 const s = StyleSheet.create({
   gestureWrapper: { flex: 1 },
@@ -24,13 +30,13 @@ const s = StyleSheet.create({
 
 const App = () => {
   return (
-    <SafeAreaProvider>
+    <Provider store={store}>
       <GestureHandlerRootView style={s.gestureWrapper}>
         <NavigationContainer>
-          <Text>123</Text>
+          <ShopNavigator />
         </NavigationContainer>
       </GestureHandlerRootView>
-    </SafeAreaProvider>
+    </Provider>
   );
 };
 
