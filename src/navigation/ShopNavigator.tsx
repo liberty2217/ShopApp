@@ -1,10 +1,17 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Colors } from '../constants';
-import { ShopProductsOverviewScreen } from '../screens/ShopProductsOverview';
+import { ShopProductsOverview } from '../screens/ShopProductsOverview';
 import { Platform } from 'react-native';
+import { ShopProductDetails } from '../screens/ShopProductDetails';
+import { Products } from '../data/type';
 
-const Shop = createNativeStackNavigator();
+export type ShopStackParamList = {
+  ShopProductsOverview: undefined;
+  ShopProductDetails: { productId: Products['id']; productTitle: Products['title'] };
+};
+
+const Shop = createNativeStackNavigator<ShopStackParamList>();
 
 export const ShopNavigator: React.FC = () => {
   return (
@@ -15,7 +22,15 @@ export const ShopNavigator: React.FC = () => {
         headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary,
       }}
     >
-      <Shop.Screen name="ShopProductsOverview" component={ShopProductsOverviewScreen} />
+      <Shop.Screen name="ShopProductsOverview" component={ShopProductsOverview} options={{ title: 'All Products' }} />
+
+      <Shop.Screen
+        name="ShopProductDetails"
+        component={ShopProductDetails}
+        options={({ route }) => ({
+          title: route.params.productTitle,
+        })}
+      />
     </Shop.Navigator>
   );
 };

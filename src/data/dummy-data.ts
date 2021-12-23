@@ -5,12 +5,11 @@ export const PRODUCTS: Products[] = [
     id: 'p1',
     ownderId: 'u1',
     title: 'Red Shirt',
-    imageUrl:
-      'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
+    imageUrl: 'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
     description: 'A red t-shirt, perfect for days with non-red weather.',
     price: 29.99,
   },
-  
+
   {
     id: 'p2',
     ownderId: 'u1',
@@ -37,8 +36,7 @@ export const PRODUCTS: Products[] = [
     title: 'The Book - Limited Edition',
     imageUrl:
       'https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg?cs=srgb&dl=blur-blurred-book-pages-46274.jpg&fm=jpg',
-    description:
-      "What the content is? Why would that matter? It's a limited edition!",
+    description: "What the content is? Why would that matter? It's a limited edition!",
     price: 15.99,
   },
 
@@ -48,8 +46,7 @@ export const PRODUCTS: Products[] = [
     title: 'PowerBook',
     imageUrl:
       'https://get.pxhere.com/photo/laptop-computer-macbook-mac-screen-water-board-keyboard-technology-air-mouse-photo-airport-aircraft-tablet-aviation-office-black-monitor-keys-graphic-hardware-image-pc-exhibition-multimedia-calculator-vector-water-cooling-floppy-disk-phased-out-desktop-computer-netbook-personal-computer-computer-monitor-electronic-device-computer-hardware-display-device-448748.jpg',
-    description:
-      'Awesome hardware, crappy keyboard and a hefty price. Buy now before a new one is released!',
+    description: 'Awesome hardware, crappy keyboard and a hefty price. Buy now before a new one is released!',
     price: 2299.99,
   },
 
@@ -57,10 +54,8 @@ export const PRODUCTS: Products[] = [
     id: 'p6',
     ownderId: 'u1',
     title: 'Pen & Paper',
-    imageUrl:
-      'https://cdn.pixabay.com/photo/2015/10/03/02/14/pen-969298_1280.jpg',
-    description:
-      "Can be used for role-playing (not the kind of role-playing you're thinking about...).",
+    imageUrl: 'https://cdn.pixabay.com/photo/2015/10/03/02/14/pen-969298_1280.jpg',
+    description: "Can be used for role-playing (not the kind of role-playing you're thinking about...).",
     price: 5.49,
   },
 ];

@@ -10,19 +10,11 @@
 
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { combineReducers, createStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import { productsReducer } from './src/store/reducers/products';
 import { ShopNavigator } from './src/navigation/ShopNavigator';
-
-const rootReducer = combineReducers({
-  products: productsReducer,
-});
-
-const store = createStore(rootReducer);
+import { store } from './src/store/app/rootReducer';
 
 const s = StyleSheet.create({
   gestureWrapper: { flex: 1 },
