@@ -11,8 +11,6 @@ type ShopProductItem = {
   onAddToCart: () => null;
 };
 
-TouchableNativeFeedback;
-
 export const ShopProductItem: React.FC<ShopProductItem> = (props) => {
   const { image, title, price, onViewDetail, onAddToCart } = props;
 
