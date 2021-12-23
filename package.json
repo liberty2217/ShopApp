@@ -5,11 +5,7 @@
     "@react-native-community/eslint-config": "^2.0.0",
     "@react-navigation/native": "^6.0.6",
     "@reduxjs/toolkit": "^1.7.1",
-<<<<<<< HEAD
     "eslint": "^7.32.0",
-=======
-    "@types/react-redux": "^7.1.20",
->>>>>>> 460ffa07370432bbba382d962044270fa47c193a
     "react": "^17.0.2",
     "react-native": "^0.66.4",
     "react-native-gesture-handler": "^2.1.0",
@@ -25,18 +21,16 @@
     "@types/react-native": "^0.66.9",
     "@types/react-test-renderer": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/parser": "^5.8.0",
     "eslint": "^8.5.0",
     "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-flowtype": "8.0.3",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "jest": "^27.4.5",
-<<<<<<< HEAD
     "prettier": "2.5.1",
-=======
-    "prettier": "^2.5.1",
->>>>>>> 460ffa07370432bbba382d962044270fa47c193a
     "react-test-renderer": "^17.0.2"
   },
   "jest": {
