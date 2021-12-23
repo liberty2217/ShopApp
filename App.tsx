@@ -8,11 +8,15 @@
  * @format
  */
 
-import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { combineReducers, createStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+
+// const rootReducer = combineReducers();
 
 const s = StyleSheet.create({
   gestureWrapper: { flex: 1 },
