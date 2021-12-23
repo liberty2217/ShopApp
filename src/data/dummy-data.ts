@@ -1,6 +1,6 @@
 import { Products } from './type';
 
-const PRODUCTS: Products[] = [
+export const PRODUCTS: Products[] = [
   {
     id: 'p1',
     ownderId: 'u1',
@@ -10,7 +10,7 @@ const PRODUCTS: Products[] = [
     description: 'A red t-shirt, perfect for days with non-red weather.',
     price: 29.99,
   },
-
+  
   {
     id: 'p2',
     ownderId: 'u1',
