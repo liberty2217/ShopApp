@@ -1,11 +1,10 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { View, Text, Image, ScrollView, Button } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../../constants';
 import { ShopStackParamList } from '../../navigation/ShopNavigator';
 import { addToCart } from '../../store/actions/cart';
-import { RootState } from '../../store/app/rootReducer';
+import { useAppDispatch, useAppSelector } from '../../store/app/rootReducer';
 import { styles as s } from './styles';
 
 type Props = NativeStackScreenProps<ShopStackParamList, 'ShopProductDetails'>;
@@ -14,11 +13,11 @@ export const ShopProductDetails: React.FC<Props> = (props) => {
   const { route } = props;
   const { productId } = route.params;
 
-  const selectedProduct = useSelector((state: RootState) =>
+  const selectedProduct = useAppSelector((state) =>
     state.products.availableProducts.find((prod) => prod.id === productId),
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   if (selectedProduct === undefined) return null;
 
   return (

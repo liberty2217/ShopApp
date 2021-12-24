@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Colors } from '../constants';
 import { ShopProductsOverview } from '../screens/ShopProductsOverview';
-import { Platform } from 'react-native';
+import { Button, Platform } from 'react-native';
 import { ShopProductDetails } from '../screens/ShopProductDetails';
 import { Products } from '../data/type';
 
@@ -25,7 +25,14 @@ export const ShopNavigator: React.FC = () => {
         },
       }}
     >
-      <Shop.Screen name="ShopProductsOverview" component={ShopProductsOverview} options={{ title: 'All Products' }} />
+      <Shop.Screen
+        name="ShopProductsOverview"
+        component={ShopProductsOverview}
+        options={{
+          title: 'All Products',
+          headerRight: () => <Button onPress={() => console.log('This is a button!')} title="Info" color="red" />,
+        }}
+      />
 
       <Shop.Screen
         name="ShopProductDetails"

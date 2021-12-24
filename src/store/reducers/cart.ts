@@ -2,12 +2,11 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { Products } from '../../data/type';
 import { ADD_TO_CART } from '../actions/cart';
 
-//change
 export type CartItem = {
   [key: string]: {
     quantity: number;
-    prodPrice: number;
-    prodTitle: string;
+    prodPrice: Products['price'];
+    prodTitle: Products['title'];
     sum: number;
   };
 };
@@ -18,14 +17,7 @@ interface CartReducerInitialState {
 }
 
 const initialState: CartReducerInitialState = {
-  items: {
-    p1: {
-      quantity: 0,
-      prodPrice: 0,
-      prodTitle: '',
-      sum: 0,
-    },
-  },
+  items: {},
   totalAmount: 0,
 };
 

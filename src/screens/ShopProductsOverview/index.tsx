@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ShopProductItem } from '../../components/ShopProductItem';
 import { ShopStackParamList } from '../../navigation/ShopNavigator';
 import { addToCart } from '../../store/actions/cart';
-import { RootState } from '../../store/app/rootReducer';
+import { RootState, useAppSelector } from '../../store/app/rootReducer';
 
 type Props = NativeStackScreenProps<ShopStackParamList, 'ShopProductsOverview'>;
 
 export const ShopProductsOverview: React.FC<Props> = (props) => {
   const { navigation } = props;
 
-  const products = useSelector((state: RootState) => state.products.availableProducts);
+  const products = useAppSelector((state) => state.products.availableProducts);
 
   const dispatch = useDispatch();
 
