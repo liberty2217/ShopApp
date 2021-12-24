@@ -33,10 +33,12 @@ export const styles = StyleSheet.create({
     padding: 10,
   },
   title: {
+    fontFamily: 'OpenSans-Bold',
     fontSize: 18,
-    marginVertical: 4,
+    marginVertical: 2,
   },
   price: {
+    fontFamily: 'OpenSans-Regular',
     fontSize: 14,
     color: '#888',
   },

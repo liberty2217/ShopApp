@@ -20,6 +20,9 @@ export const ShopNavigator: React.FC = () => {
       screenOptions={{
         headerStyle: { backgroundColor: Platform.OS === 'android' ? Colors.primary : '' },
         headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary,
+        headerTitleStyle: {
+          fontFamily: 'OpenSans-Bold',
+        },
       }}
     >
       <Shop.Screen name="ShopProductsOverview" component={ShopProductsOverview} options={{ title: 'All Products' }} />
