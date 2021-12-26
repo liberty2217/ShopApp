@@ -2,11 +2,13 @@ import { combineReducers, createStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { cartReducer } from '../reducers/cart';
+import { ordersReducer } from '../reducers/orders';
 import { productsReducer } from '../reducers/products';
 
 export const rootReducer = combineReducers({
   products: productsReducer,
   cart: cartReducer,
+  orders: ordersReducer,
 });
 
 export const store = createStore(rootReducer, composeWithDevTools());

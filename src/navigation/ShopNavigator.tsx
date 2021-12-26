@@ -5,10 +5,14 @@ import { ShopProductsOverview } from '../screens/ShopProductsOverview';
 import { Button, Platform } from 'react-native';
 import { ShopProductDetails } from '../screens/ShopProductDetails';
 import { Products } from '../data/type';
+import { UIIconButton } from '../components/ShopProductItem/UI/UIHeaderButton';
+import shoppingCart from '../assets/icons/shoppingCart';
+import { ShopCart } from '../screens/ShopCart';
 
 export type ShopStackParamList = {
   ShopProductsOverview: undefined;
   ShopProductDetails: { productId: Products['id']; productTitle: Products['title'] };
+  ShopCart: undefined;
 };
 
 const Shop = createNativeStackNavigator<ShopStackParamList>();
@@ -28,10 +32,15 @@ export const ShopNavigator: React.FC = () => {
       <Shop.Screen
         name="ShopProductsOverview"
         component={ShopProductsOverview}
-        options={{
+        options={({ navigation }) => ({
           title: 'All Products',
-          headerRight: () => <Button onPress={() => console.log('This is a button!')} title="Info" color="red" />,
-        }}
+          headerRight: () => (
+            <UIIconButton
+              onPress={() => navigation.navigate('ShopCart')}
+              icon={shoppingCart({ color: Platform.OS === 'android' ? '#FFFFFF' : Colors.primary })}
+            />
+          ),
+        })}
       />
 
       <Shop.Screen
@@ -41,6 +50,8 @@ export const ShopNavigator: React.FC = () => {
           title: route.params.productTitle,
         })}
       />
+
+      <Shop.Screen name="ShopCart" component={ShopCart} />
     </Shop.Navigator>
   );
 };

@@ -56,6 +56,6 @@ export const PRODUCTS: Products[] = [
     title: 'Pen & Paper',
     imageUrl: 'https://cdn.pixabay.com/photo/2015/10/03/02/14/pen-969298_1280.jpg',
     description: "Can be used for role-playing (not the kind of role-playing you're thinking about...).",
-    price: 5.49,
+    price: 5.99,
   },
 ];

@@ -1,6 +1,19 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export const UIIconButton = (props) => {
-  return <Text>123</Text>;
+import { SvgXml } from 'react-native-svg';
+
+type UIIconButton = {
+  onPress?: () => any;
+  icon: string;
+};
+
+export const UIIconButton: React.FC<UIIconButton> = (props) => {
+  const { onPress, icon } = props;
+
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <SvgXml xml={icon} />
+    </TouchableOpacity>
+  );
 };
