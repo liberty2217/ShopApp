@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ShopCartItem } from '../../components/ShopCartItem';
 import { Colors } from '../../constants';
 import { removeFromCart } from '../../store/actions/cart';

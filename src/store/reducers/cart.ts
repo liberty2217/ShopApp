@@ -1,5 +1,7 @@
 import { Products } from '../../data/type';
 import { ADD_TO_CART, REMOVE_FROM_CART } from '../actions/cart';
+import { ADD_ORDER } from '../actions/orders';
+import { ActionAddOrder } from './orders';
 
 export type CartItem = {
   [key: string]: {
@@ -15,11 +17,6 @@ interface CartReducerInitialState {
   totalAmount: number;
 }
 
-const initialState: CartReducerInitialState = {
-  items: {},
-  totalAmount: 0,
-};
-
 interface ActionAddToCart {
   type: 'ADD_TO_CART';
   payload: Products;
@@ -30,8 +27,12 @@ interface ActionRemoveFromCart {
   pid: Products['id'];
 }
 
-type Action = ActionAddToCart | ActionRemoveFromCart;
+type Action = ActionAddToCart | ActionRemoveFromCart | ActionAddOrder;
 
+const initialState: CartReducerInitialState = {
+  items: {},
+  totalAmount: 0,
+};
 export const cartReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case ADD_TO_CART: {
@@ -87,6 +88,10 @@ export const cartReducer = (state = initialState, action: Action) => {
         totalAmount: +state.totalAmount.toFixed(2) - +selectedCartItem.prodPrice.toFixed(2),
       };
     }
+
+    case ADD_ORDER:
+      return initialState;
+
     default:
       return state;
   }

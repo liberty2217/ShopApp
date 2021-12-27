@@ -8,11 +8,7 @@ export type Order = {
   date: string;
 };
 
-const initialState = {
-  orders: [],
-};
-
-interface ActionAddOrder {
+export interface ActionAddOrder {
   type: 'ADD_ORDER';
   orderData: {
     items: CartItem[];
@@ -21,6 +17,14 @@ interface ActionAddOrder {
 }
 
 type Action = ActionAddOrder;
+
+type OrdersReducerInitialState = {
+  orders: Order[];
+};
+
+const initialState: OrdersReducerInitialState = {
+  orders: [],
+};
 
 export const ordersReducer = (state = initialState, action: Action) => {
   switch (action.type) {
