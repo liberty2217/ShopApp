@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ShopCartItem } from '../../components/ShopCartItem';
 import { Colors } from '../../constants';
 import { removeFromCart } from '../../store/actions/cart';
@@ -11,6 +11,7 @@ import { styles as s } from './styles';
 
 export const ShopCart = () => {
   const cartTotalAmount = useAppSelector((state) => state.cart.totalAmount);
+
   const cartItems = useAppSelector((state) => {
     const transformedCartItems = [];
     for (const key in state.cart.items) {
@@ -22,7 +23,8 @@ export const ShopCart = () => {
         sum: state.cart.items[key].sum,
       });
     }
-    return transformedCartItems.sort((a, b) => (a.productId > b.productId ? 1 : -1));
+
+    return transformedCartItems;
   });
 
   const dispatch = useDispatch();
