@@ -1,6 +1,7 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { Button, FlatList } from 'react-native';
 import { ShopProductItem } from '../../components/ShopProductItem';
+import { Colors } from '../../constants';
 import { useAppSelector } from '../../store/app/rootReducer';
 
 export const UserProducts = () => {
@@ -13,9 +14,11 @@ export const UserProducts = () => {
           image={itemData.item.imageUrl}
           title={itemData.item.title}
           price={itemData.item.price}
-          onViewDetail={() => null}
-          onAddToCart={() => null}
-        />
+          onSelect={() => null}
+        >
+          <Button color={Colors.primary} title="Edit" onPress={() => null} />
+          <Button color={Colors.primary} title="Delete" onPress={() => null} />
+        </ShopProductItem>
       )}
     />
   );

@@ -1,18 +1,16 @@
 import React from 'react';
-import { Image, View, Text, Button, TouchableNativeFeedback, Platform, TouchableOpacity } from 'react-native';
-import { Colors } from '../../constants';
+import { Image, View, Text, TouchableNativeFeedback, Platform, TouchableOpacity } from 'react-native';
 import { styles as s } from './styles';
 
 type ShopProductItem = {
   image: string;
   title: string;
   price: number;
-  onViewDetail: () => void;
-  onAddToCart?: () => void;
+  onSelect: () => any;
 };
 
 export const ShopProductItem: React.FC<ShopProductItem> = (props) => {
-  const { image, title, price, onViewDetail, onAddToCart } = props;
+  const { image, title, price, onSelect, children } = props;
 
   let TouchableCmp = TouchableOpacity;
 
@@ -23,7 +21,7 @@ export const ShopProductItem: React.FC<ShopProductItem> = (props) => {
   return (
     <View style={s.product}>
       <View style={s.touchable}>
-        <TouchableCmp onPress={onViewDetail} useForeground>
+        <TouchableCmp onPress={onSelect} useForeground>
           <View>
             <View style={s.imageContainer}>
               <Image style={s.image} source={{ uri: image }} />
@@ -32,10 +30,7 @@ export const ShopProductItem: React.FC<ShopProductItem> = (props) => {
               <Text style={s.title}>{title}</Text>
               <Text style={s.price}>${price.toFixed(2)}</Text>
             </View>
-            <View style={s.actions}>
-              <Button color={Colors.primary} title="View Details" onPress={onViewDetail} />
-              <Button color={Colors.primary} title="To Cart" onPress={onAddToCart} />
-            </View>
+            <View style={s.actions}>{children}</View>
           </View>
         </TouchableCmp>
       </View>

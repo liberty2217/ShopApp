@@ -1,11 +1,13 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { FlatList } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { Button, FlatList } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { ShopProductItem } from '../../components/ShopProductItem';
+import { Colors } from '../../constants';
+import { Products } from '../../data/type';
 import { ProductStackParamList } from '../../navigation/ProductsNavigator';
 import { addToCart } from '../../store/actions/cart';
-import { RootState, useAppSelector } from '../../store/app/rootReducer';
+import { useAppSelector } from '../../store/app/rootReducer';
 
 type Props = NativeStackScreenProps<ProductStackParamList, 'ShopProductsOverview'>;
 
@@ -13,6 +15,13 @@ export const ShopProductsOverview: React.FC<Props> = (props) => {
   const { navigation } = props;
 
   const products = useAppSelector((state) => state.products.availableProducts);
+
+  const selectItemHandler = (id: Products['id'], title: Products['title']) => {
+    navigation.navigate('ShopProductDetails', {
+      productId: id,
+      productTitle: title,
+    });
+  };
 
   const dispatch = useDispatch();
 
@@ -24,14 +33,15 @@ export const ShopProductsOverview: React.FC<Props> = (props) => {
           image={itemData.item.imageUrl}
           title={itemData.item.title}
           price={itemData.item.price}
-          onViewDetail={() =>
-            navigation.navigate('ShopProductDetails', {
-              productId: itemData.item.id,
-              productTitle: itemData.item.title,
-            })
-          }
-          onAddToCart={() => dispatch(addToCart(itemData.item))}
-        />
+          onSelect={() => selectItemHandler(itemData.item.id, itemData.item.title)}
+        >
+          <Button
+            color={Colors.primary}
+            title="View Details"
+            onPress={() => selectItemHandler(itemData.item.id, itemData.item.title)}
+          />
+          <Button color={Colors.primary} title="To Cart" onPress={() => dispatch(addToCart(itemData.item))} />
+        </ShopProductItem>
       )}
     />
   );
