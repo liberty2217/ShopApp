@@ -8,7 +8,7 @@ type ShopProductItem = {
   title: string;
   price: number;
   onViewDetail: () => void;
-  onAddToCart: () => void;
+  onAddToCart?: () => void;
 };
 
 export const ShopProductItem: React.FC<ShopProductItem> = (props) => {

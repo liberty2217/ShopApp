@@ -6,6 +6,8 @@ import copy from '../assets/icons/copy';
 import { UIIconButton } from '../components/UI/UIHeaderButton';
 import { ProductsNavigator } from './ProductsNavigator';
 import { OrdersNavigator } from './OrdersNavigator';
+import { AdminNavigator } from './AdminNavigator';
+import user from '../assets/icons/user';
 
 const Shop = createBottomTabNavigator();
 
@@ -26,6 +28,14 @@ export const ShopNavigator = () => {
         options={{
           tabBarLabel: 'Orders',
           tabBarIcon: () => <UIIconButton icon={copy({ color: Colors.primary })} />,
+        }}
+      />
+      <Shop.Screen
+        name="AdminNavigator"
+        component={AdminNavigator}
+        options={{
+          tabBarLabel: 'User Products',
+          tabBarIcon: () => <UIIconButton icon={user({ color: Colors.primary })} />,
         }}
       />
     </Shop.Navigator>
