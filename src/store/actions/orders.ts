@@ -2,7 +2,7 @@ import { Products } from '../../data/type';
 
 export const ADD_ORDER = 'ADD_ORDER';
 
-type TransformedCartItems = {
+export type TransformedCartItems = {
   productId: Products['id'];
   productTitle: Products['title'];
   productPrice: Products['price'];

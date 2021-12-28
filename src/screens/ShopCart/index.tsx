@@ -49,6 +49,7 @@ export const ShopCart = () => {
           <ShopCartItem
             quantity={itemData.item.quantity}
             title={itemData.item.productTitle}
+            deletable={true}
             amount={itemData.item.sum}
             onRemove={() => {
               dispatch(removeFromCart(itemData.item.productId));

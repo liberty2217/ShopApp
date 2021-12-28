@@ -3,11 +3,11 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { ShopProductItem } from '../../components/ShopProductItem';
-import { ShopStackParamList } from '../../navigation/ShopNavigator';
+import { ProductStackParamList } from '../../navigation/ProductsNavigator';
 import { addToCart } from '../../store/actions/cart';
 import { RootState, useAppSelector } from '../../store/app/rootReducer';
 
-type Props = NativeStackScreenProps<ShopStackParamList, 'ShopProductsOverview'>;
+type Props = NativeStackScreenProps<ProductStackParamList, 'ShopProductsOverview'>;
 
 export const ShopProductsOverview: React.FC<Props> = (props) => {
   const { navigation } = props;

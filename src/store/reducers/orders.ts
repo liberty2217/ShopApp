@@ -1,9 +1,9 @@
-import { ADD_ORDER } from '../actions/orders';
-import { CartItem } from './cart';
+import { ADD_ORDER, TransformedCartItems } from '../actions/orders';
+import { format } from 'date-fns';
 
 export type Order = {
   id: string;
-  items: CartItem[];
+  items: TransformedCartItems[];
   totalAmount: number;
   date: string;
 };
@@ -11,7 +11,7 @@ export type Order = {
 export interface ActionAddOrder {
   type: 'ADD_ORDER';
   orderData: {
-    items: CartItem[];
+    items: TransformedCartItems[];
     amount: number;
   };
 }
@@ -34,7 +34,7 @@ export const ordersReducer = (state = initialState, action: Action) => {
         id: new Date().toString(),
         items: action.orderData.items,
         totalAmount: action.orderData.amount,
-        date: new Date().toString(),
+        date: format(new Date(), 'dd/MM/yyyy'),
       };
       return { ...state, orders: state.orders.concat(newOrder) };
     }

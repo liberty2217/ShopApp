@@ -2,12 +2,12 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { View, Text, Image, ScrollView, Button } from 'react-native';
 import { Colors } from '../../constants';
-import { ShopStackParamList } from '../../navigation/ShopNavigator';
+import { ProductStackParamList } from '../../navigation/ProductsNavigator';
 import { addToCart } from '../../store/actions/cart';
 import { useAppDispatch, useAppSelector } from '../../store/app/rootReducer';
 import { styles as s } from './styles';
 
-type Props = NativeStackScreenProps<ShopStackParamList, 'ShopProductDetails'>;
+type Props = NativeStackScreenProps<ProductStackParamList, 'ShopProductDetails'>;
 
 export const ShopProductDetails: React.FC<Props> = (props) => {
   const { route } = props;

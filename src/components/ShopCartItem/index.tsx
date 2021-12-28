@@ -9,26 +9,30 @@ import { Colors } from '../../constants';
 import { styles as s } from './styles';
 
 type ShopCartItemProps = {
+  deletable?: boolean;
   quantity: number;
   title: string;
   amount: number;
-  onRemove: () => any;
+  onRemove?: () => any;
 };
 
 export const ShopCartItem: React.FC<ShopCartItemProps> = (props) => {
-  const { onRemove = () => null, title, quantity, amount } = props;
+  const { onRemove = () => null, title, quantity, amount, deletable = false } = props;
 
   return (
     <View style={s.cartItem}>
       <Text style={s.itemData}>
         <Text style={s.quantity}>{quantity} </Text>
-        <Text style={s.mainText}>{title}</Text>
+        <Text style={s.mainText}>{title} </Text>
       </Text>
       <View style={s.itemData}>
         <Text style={s.mainText}>$ {amount.toFixed(2)}</Text>
-        <TouchableOpacity style={s.deleteButton} onPress={onRemove}>
-          <SvgXml xml={trash({ color: Colors.primary })} />
-        </TouchableOpacity>
+
+        {deletable && (
+          <TouchableOpacity style={s.deleteButton} onPress={onRemove}>
+            <SvgXml xml={trash({ color: Colors.primary })} />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
