@@ -3,6 +3,7 @@ import { View, Button, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
 import { ShopCartItem } from '../../components/ShopCartItem';
+import { Card } from '../../components/UI/Card';
 import { Colors } from '../../constants';
 import { removeFromCart } from '../../store/actions/cart';
 import { addOrder } from '../../store/actions/orders';
@@ -31,7 +32,7 @@ export const ShopCart = () => {
 
   return (
     <View style={s.screen}>
-      <View style={s.summary}>
+      <Card style={s.summary}>
         <Text style={s.summaryText}>
           Total: <Text style={s.amount}>${Math.round(+cartTotalAmount.toFixed(2) * 100) / 100}</Text>
         </Text>
@@ -41,7 +42,7 @@ export const ShopCart = () => {
           disabled={cartItems.length === 0}
           onPress={() => dispatch(addOrder(cartItems, cartTotalAmount))}
         />
-      </View>
+      </Card>
 
       <FlatList
         data={cartItems}

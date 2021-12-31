@@ -9,7 +9,7 @@ import check from '../assets/icons/check';
 
 export type AdminStackParamList = {
   UserProducts: undefined;
-  UserEditProduct: { productId?: string; submit: () => any };
+  UserEditProduct: { productId?: string; submit?: () => any };
 };
 
 const Admin = createNativeStackNavigator<AdminStackParamList>();

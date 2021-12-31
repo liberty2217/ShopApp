@@ -4,6 +4,7 @@ import { Colors } from '../../constants';
 import { TransformedCartItems } from '../../store/actions/orders';
 
 import { ShopCartItem } from '../ShopCartItem';
+import { Card } from '../UI/Card';
 import { styles as s } from './styles';
 
 type ShopOrderItemProps = {
@@ -18,7 +19,7 @@ export const ShopOrderItem: React.FC<ShopOrderItemProps> = (props) => {
   const [showDetails, setShowDetails] = React.useState(false);
 
   return (
-    <View style={s.orderItem}>
+    <Card style={s.orderItem}>
       <View style={s.summary}>
         <Text style={s.totalAmount}>$ {amount.toFixed(2)}</Text>
         <Text style={s.date}>{date}</Text>
@@ -42,6 +43,6 @@ export const ShopOrderItem: React.FC<ShopOrderItemProps> = (props) => {
           ))}
         </View>
       )}
-    </View>
+    </Card>
   );
 };

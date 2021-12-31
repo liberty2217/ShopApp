@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, View, Text, TouchableNativeFeedback, Platform, TouchableOpacity } from 'react-native';
+import { Card } from '../UI/Card';
 import { styles as s } from './styles';
 
 type ShopProductItem = {
@@ -19,7 +20,7 @@ export const ShopProductItem: React.FC<ShopProductItem> = (props) => {
   }
 
   return (
-    <View style={s.product}>
+    <Card style={s.product}>
       <View style={s.touchable}>
         <TouchableCmp onPress={onSelect} useForeground>
           <View>
@@ -34,6 +35,6 @@ export const ShopProductItem: React.FC<ShopProductItem> = (props) => {
           </View>
         </TouchableCmp>
       </View>
-    </View>
+    </Card>
   );
 };
