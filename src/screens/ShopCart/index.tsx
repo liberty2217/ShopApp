@@ -33,7 +33,7 @@ export const ShopCart = () => {
     <View style={s.screen}>
       <View style={s.summary}>
         <Text style={s.summaryText}>
-          Total: <Text style={s.amount}>${cartTotalAmount.toFixed(2)}</Text>
+          Total: <Text style={s.amount}>${Math.round(+cartTotalAmount.toFixed(2) * 100) / 100}</Text>
         </Text>
         <Button
           title="Order Now"

@@ -1,7 +1,9 @@
 import { Products } from '../../data/type';
 import { ADD_TO_CART, REMOVE_FROM_CART } from '../actions/cart';
 import { ADD_ORDER } from '../actions/orders';
+import { DELETE_PRODUCT } from '../actions/products';
 import { ActionAddOrder } from './orders';
+import { ActionDeleteProduct } from './products';
 
 export type CartItem = {
   [key: string]: {
@@ -27,7 +29,7 @@ interface ActionRemoveFromCart {
   pid: Products['id'];
 }
 
-type Action = ActionAddToCart | ActionRemoveFromCart | ActionAddOrder;
+type Action = ActionAddToCart | ActionRemoveFromCart | ActionAddOrder | ActionDeleteProduct;
 
 const initialState: CartReducerInitialState = {
   items: {},
@@ -85,12 +87,28 @@ export const cartReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         items: updatedCartItems,
-        totalAmount: +state.totalAmount.toFixed(2) - +selectedCartItem.prodPrice.toFixed(2),
+        totalAmount: state.totalAmount - selectedCartItem.prodPrice,
       };
     }
 
     case ADD_ORDER:
       return initialState;
+
+    case DELETE_PRODUCT: {
+      if (!state.items[action.pid]) {
+        return state;
+      }
+
+      const updatedItems = { ...state.items };
+      const itemTotal = state.items[action.pid].sum;
+      delete updatedItems[action.pid];
+
+      return {
+        ...state,
+        items: updatedItems,
+        totalAmount: state.totalAmount - itemTotal,
+      };
+    }
 
     default:
       return state;
