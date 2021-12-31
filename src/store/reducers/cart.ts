@@ -20,12 +20,12 @@ interface CartReducerInitialState {
 }
 
 interface ActionAddToCart {
-  type: 'ADD_TO_CART';
+  type: typeof ADD_TO_CART;
   payload: Products;
 }
 
 interface ActionRemoveFromCart {
-  type: 'REMOVE_FROM_CART';
+  type: typeof REMOVE_FROM_CART;
   pid: Products['id'];
 }
 

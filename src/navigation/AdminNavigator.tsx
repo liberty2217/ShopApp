@@ -5,7 +5,6 @@ import { UserProducts } from '../screens/UserProduct';
 import { UserEditProduct } from '../screens/UserEditProduct';
 import { UIIconButton } from '../components/UI/UIHeaderButton';
 import pencil from '../assets/icons/pencil';
-import { Platform } from 'react-native';
 import check from '../assets/icons/check';
 
 export type AdminStackParamList = {
@@ -34,7 +33,7 @@ export const AdminNavigator = () => {
           headerRight: () => (
             <UIIconButton
               onPress={() => navigation.navigate('UserEditProduct')}
-              icon={pencil({ color: Platform.OS === 'android' ? '#FFFFFF' : Colors.primary })}
+              icon={pencil({ color: Colors.primary })}
             />
           ),
         })}
@@ -44,12 +43,7 @@ export const AdminNavigator = () => {
         component={UserEditProduct}
         options={({ route }) => ({
           headerTitle: route.params?.productId !== undefined ? 'Edit Product' : 'Add Product',
-          headerRight: () => (
-            <UIIconButton
-              onPress={route.params.submit}
-              icon={check({ color: Platform.OS === 'android' ? '#FFFFFF' : Colors.primary })}
-            />
-          ),
+          headerRight: () => <UIIconButton onPress={route.params?.submit} icon={check({ color: Colors.primary })} />,
         })}
       />
     </Admin.Navigator>

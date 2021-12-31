@@ -9,7 +9,7 @@ export type Order = {
 };
 
 export interface ActionAddOrder {
-  type: 'ADD_ORDER';
+  type: typeof ADD_ORDER;
   orderData: {
     items: TransformedCartItems[];
     amount: number;

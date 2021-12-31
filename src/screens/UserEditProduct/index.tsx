@@ -1,7 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState, useCallback, useEffect } from 'react';
 import { ScrollView, Text, TextInput, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { AdminStackParamList } from '../../navigation/AdminNavigator';
+import { createProduct, updateProduct } from '../../store/actions/products';
 import { useAppSelector } from '../../store/app/rootReducer';
 import { styles as s } from './styles';
 
@@ -19,9 +21,15 @@ export const UserEditProduct: React.FC<Props> = (props) => {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState(editedProduct ? editedProduct.description : '');
 
+  const dispatch = useDispatch();
+
   const submitHandler = useCallback(() => {
-    console.log('Submitting!');
-  }, []);
+    if (editedProduct) {
+      dispatch(updateProduct(productId!, title, description, imageUrl));
+    } else {
+      dispatch(createProduct(title, description, imageUrl, +price));
+    }
+  }, [description, dispatch, editedProduct, imageUrl, price, productId, title]);
 
   useEffect(() => {
     navigation.setParams({ submit: submitHandler });
