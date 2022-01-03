@@ -1,12 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  kav: {
-    flex: 1,
-  },
-  form: {
-    margin: 20,
-  },
   formControl: {
     width: '100%',
   },
@@ -19,5 +13,13 @@ export const styles = StyleSheet.create({
     paddingVertical: 5,
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
+  },
+  errorContainer: {
+    marginVertical: 5,
+  },
+  errorText: {
+    fontFamily: 'OpenSans-Regular',
+    color: 'red',
+    fontSize: 13,
   },
 });
