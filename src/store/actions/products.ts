@@ -14,27 +14,36 @@ export const deleteProduct = (productId: Products['id']) => {
 export const fetchProducts = () => {
   return async (dispatch: Dispatch<SetProductsAction>) => {
     // any async code you want!
-    const response = await fetch('https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/products.json');
+    try {
+      const response = await fetch('https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/products.json');
 
-    const resData = await response.json();
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
 
-    const loadedProducts: Products[] = [];
+      const resData = await response.json();
 
-    for (const key in resData) {
-      loadedProducts.push({
-        id: key,
-        ownerId: 'u1',
-        title: resData[key].title,
-        imageUrl: resData[key].imageUrl,
-        description: resData[key].description,
-        price: resData[key].price,
+      const loadedProducts: Products[] = [];
+
+      for (const key in resData) {
+        loadedProducts.push({
+          id: key,
+          ownerId: 'u1',
+          title: resData[key].title,
+          imageUrl: resData[key].imageUrl,
+          description: resData[key].description,
+          price: resData[key].price,
+        });
+      }
+
+      dispatch({
+        type: SET_PRODUCTS,
+        products: loadedProducts,
       });
+    } catch (err) {
+      console.log('handling error here');
+      throw err;
     }
-
-    dispatch({
-      type: SET_PRODUCTS,
-      products: loadedProducts,
-    });
   };
 };
 
