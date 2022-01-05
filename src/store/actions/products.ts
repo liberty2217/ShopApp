@@ -1,6 +1,6 @@
 import { Dispatch } from 'react';
 import { Products } from '../../data/type';
-import { ActionCreateProduct, SetProductsAction } from '../reducers/products';
+import { ActionCreateProduct, ActionDeleteProduct, ActionUpdateProduct, SetProductsAction } from '../reducers/products';
 
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
@@ -8,7 +8,20 @@ export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const SET_PRODUCTS = 'SET_PRODUCTS';
 
 export const deleteProduct = (productId: Products['id']) => {
-  return { type: DELETE_PRODUCT, pid: productId };
+  return async (dispatch: Dispatch<ActionDeleteProduct>) => {
+    const response = await fetch(
+      `https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/products/${productId}.json`,
+      {
+        method: 'DELETE',
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error('Something wen wrong!');
+    }
+
+    return dispatch({ type: DELETE_PRODUCT, pid: productId });
+  };
 };
 
 export const fetchProducts = () => {
@@ -18,6 +31,7 @@ export const fetchProducts = () => {
       const response = await fetch('https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/products.json');
 
       if (!response.ok) {
+        // if repsonse is 400 / 500 status code
         throw new Error('Something went wrong!');
       }
 
@@ -89,13 +103,31 @@ export const updateProduct = (
   description: Products['description'],
   imageUrl: Products['imageUrl'],
 ) => {
-  return {
-    type: UPDATE_PRODUCT,
-    pid: id,
-    productData: {
-      title,
-      description,
-      imageUrl,
-    },
+  return async (dispatch: Dispatch<ActionUpdateProduct>) => {
+    const response = await fetch(`https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/products/${id}.json`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        imageUrl,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Something wen wrong!');
+    }
+
+    dispatch({
+      type: UPDATE_PRODUCT,
+      pid: id,
+      productData: {
+        title,
+        description,
+        imageUrl,
+      },
+    });
   };
 };

@@ -11,8 +11,10 @@ export type Order = {
 export interface ActionAddOrder {
   type: typeof ADD_ORDER;
   orderData: {
+    id: string;
     items: TransformedCartItems[];
     amount: number;
+    date: Date;
   };
 }
 
@@ -31,10 +33,10 @@ export const ordersReducer = (state = initialState, action: Action) => {
     case ADD_ORDER: {
       const newOrder: Order = {
         // "id" is "generated" on the server when we create an order
-        id: new Date().toString(),
+        id: action.orderData.id,
         items: action.orderData.items,
         totalAmount: action.orderData.amount,
-        date: format(new Date(), 'dd/MM/yyyy'),
+        date: action.orderData.date,
       };
       return { ...state, orders: state.orders.concat(newOrder) };
     }

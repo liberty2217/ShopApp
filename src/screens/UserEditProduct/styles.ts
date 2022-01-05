@@ -20,4 +20,9 @@ export const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
   },
+  centered: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

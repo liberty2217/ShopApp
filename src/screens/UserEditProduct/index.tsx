@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useReducer } from 'react';
-import { Alert, KeyboardAvoidingView, ScrollView, View } from 'react-native';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import { Alert, KeyboardAvoidingView, ScrollView, View, ActivityIndicator } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { AdminStackParamList } from '../../navigation/AdminNavigator';
 import { createProduct, updateProduct } from '../../store/actions/products';
@@ -7,6 +7,7 @@ import { useAppSelector } from '../../store/app/rootReducer';
 import { styles as s } from './styles';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Input } from '../../components/UI/Input';
+import { Colors } from '../../constants';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -36,6 +37,9 @@ const formReducer = (state, action) => {
 type Props = NativeStackScreenProps<AdminStackParamList, 'UserEditProduct'>;
 
 export const UserEditProduct: React.FC<Props> = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+
   const { route, navigation } = props;
 
   const { productId } = { ...route.params };
@@ -60,30 +64,46 @@ export const UserEditProduct: React.FC<Props> = (props) => {
 
   const dispatch = useDispatch();
 
-  const submitHandler = useCallback(() => {
+  useEffect(() => {
+    if (error) {
+      Alert.alert('An error occured', error, [{ text: 'Okay' }]);
+    }
+  }, [error]);
+
+  const submitHandler = useCallback(async () => {
     if (!formState.formIsValid) {
       Alert.alert('Wrong input!', 'Please check the errors in the form.', [{ text: 'Okay' }]);
       return;
     }
-    if (editedProduct) {
-      dispatch(
-        updateProduct(
-          productId!,
-          formState.inputValues.title,
-          formState.inputValues.description,
-          formState.inputValues.imageUrl,
-        ),
-      );
-    } else {
-      dispatch(
-        createProduct(
-          formState.inputValues.title,
-          formState.inputValues.description,
-          formState.inputValues.imageUrl,
-          +formState.inputValues.price,
-        ),
-      );
+
+    setError(null);
+    setIsLoading(true);
+
+    try {
+      if (editedProduct) {
+        await dispatch(
+          updateProduct(
+            productId!,
+            formState.inputValues.title,
+            formState.inputValues.description,
+            formState.inputValues.imageUrl,
+          ),
+        );
+      } else {
+        await dispatch(
+          createProduct(
+            formState.inputValues.title,
+            formState.inputValues.description,
+            formState.inputValues.imageUrl,
+            +formState.inputValues.price,
+          ),
+        );
+      }
+    } catch (err: any) {
+      setError(err.message);
     }
+
+    setIsLoading(false);
     navigation.goBack();
   }, [dispatch, formState, productId, editedProduct, navigation]);
 
@@ -102,6 +122,14 @@ export const UserEditProduct: React.FC<Props> = (props) => {
     },
     [dispatchFormState],
   );
+
+  if (isLoading) {
+    return (
+      <View style={s.centered}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
+  }
 
   return (
     <KeyboardAvoidingView style={s.kav} behavior="padding" keyboardVerticalOffset={100}>
