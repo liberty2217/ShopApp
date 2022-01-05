@@ -1,18 +1,34 @@
+import React, { useEffect, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
-import { Button, FlatList } from 'react-native';
-import { useDispatch } from 'react-redux';
+
+import { ActivityIndicator, Button, FlatList, View } from 'react-native';
+
 import { ShopProductItem } from '../../components/ShopProductItem';
 import { Colors } from '../../constants';
 import { Products } from '../../data/type';
 import { ProductStackParamList } from '../../navigation/ProductsNavigator';
 import { addToCart } from '../../store/actions/cart';
-import { useAppSelector } from '../../store/app/rootReducer';
+import { useAppDispatch, useAppSelector } from '../../store/app/rootReducer';
+import { fetchProducts } from '../../store/actions/products';
+import { styles as s } from './styles';
 
 type Props = NativeStackScreenProps<ProductStackParamList, 'ShopProductsOverview'>;
 
 export const ShopProductsOverview: React.FC<Props> = (props) => {
   const { navigation } = props;
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      setIsLoading(true);
+      await dispatch(fetchProducts());
+      setIsLoading(false);
+    };
+    loadProducts();
+  }, [dispatch]);
 
   const products = useAppSelector((state) => state.products.availableProducts);
 
@@ -23,7 +39,13 @@ export const ShopProductsOverview: React.FC<Props> = (props) => {
     });
   };
 
-  const dispatch = useDispatch();
+  if (isLoading) {
+    return (
+      <View style={s.centered}>
+        <ActivityIndicator color={Colors.primary} size="large" />
+      </View>
+    );
+  }
 
   return (
     <FlatList

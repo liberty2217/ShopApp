@@ -1,6 +1,5 @@
-import { combineReducers, createStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { cartReducer } from '../reducers/cart';
 import { ordersReducer } from '../reducers/orders';
 import { productsReducer } from '../reducers/products';
@@ -11,11 +10,10 @@ export const rootReducer = combineReducers({
   orders: ordersReducer,
 });
 
-export const store = createStore(rootReducer, composeWithDevTools());
+export const store = configureStore({ reducer: rootReducer, devTools: true });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
+
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

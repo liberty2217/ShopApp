@@ -1,6 +1,6 @@
 import { PRODUCTS } from '../../data/dummy-data';
 import { Products } from '../../data/type';
-import { CREATE_PRODUCT, DELETE_PRODUCT, UPDATE_PRODUCT } from '../actions/products';
+import { CREATE_PRODUCT, DELETE_PRODUCT, SET_PRODUCTS, UPDATE_PRODUCT } from '../actions/products';
 
 export interface ActionDeleteProduct {
   type: typeof DELETE_PRODUCT;
@@ -10,6 +10,7 @@ export interface ActionDeleteProduct {
 export interface ActionCreateProduct {
   type: typeof CREATE_PRODUCT;
   productData: {
+    id: string;
     title: Products['title'];
     description: Products['description'];
     imageUrl: Products['imageUrl'];
@@ -27,19 +28,31 @@ export interface ActionUpdateProduct {
   };
 }
 
-type Actions = ActionDeleteProduct | ActionCreateProduct | ActionUpdateProduct;
+export interface SetProductsAction {
+  type: typeof SET_PRODUCTS;
+  products: Products[];
+}
+
+type Actions = ActionDeleteProduct | ActionCreateProduct | ActionUpdateProduct | SetProductsAction;
 
 const initialState = {
   availableProducts: PRODUCTS,
-  userProducts: PRODUCTS.filter((product) => product.ownderId === 'u1'),
+  userProducts: PRODUCTS.filter((product) => product.ownerId === 'u1'),
 };
 
 export const productsReducer = (state = initialState, action: Actions) => {
   switch (action.type) {
+    case SET_PRODUCTS: {
+      return {
+        availableProducts: action.products,
+        userProducts: action.products,
+      };
+    }
+
     case CREATE_PRODUCT: {
       const newProduct: Products = {
-        id: new Date().toString(),
-        ownderId: 'u1',
+        id: action.productData.id,
+        ownerId: 'u1',
         title: action.productData.title,
         imageUrl: action.productData.imageUrl,
         description: action.productData.description,
@@ -55,7 +68,7 @@ export const productsReducer = (state = initialState, action: Actions) => {
       const productIndex = state.userProducts.findIndex((prod) => prod.id === action.pid);
       const updatedProduct: Products = {
         id: action.pid,
-        ownderId: state.userProducts[productIndex].ownderId,
+        ownerId: state.userProducts[productIndex].ownerId,
         title: action.productData.title,
         imageUrl: action.productData.imageUrl,
         description: action.productData.description,
