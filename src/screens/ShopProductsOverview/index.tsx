@@ -36,6 +36,11 @@ export const ShopProductsOverview: React.FC<Props> = (props) => {
   }, [dispatch]);
 
   useEffect(() => {
+    const focusSubscription = navigation.addListener('focus', loadProducts);
+
+    return focusSubscription;
+  });
+  useEffect(() => {
     loadProducts();
   }, [loadProducts]);
 
