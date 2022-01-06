@@ -1,5 +1,5 @@
-import React, { useCallback, useReducer, useState } from 'react';
-import { Button, KeyboardAvoidingView, ScrollView, View } from 'react-native';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import { ActivityIndicator, Alert, Button, KeyboardAvoidingView, ScrollView, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Card } from '../../components/UI/Card';
 import { Input } from '../../components/UI/Input';
@@ -33,6 +33,8 @@ const formReducer = (state, action) => {
 };
 
 export const Auth = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   const [isSignup, setIsSignup] = useState(false);
 
   const dispatch = useDispatch();
@@ -49,14 +51,29 @@ export const Auth = () => {
     formIsValid: false,
   });
 
-  const authHandler = () => {
+  useEffect(() => {
+    if (error) {
+      Alert.alert('Error occured!', error, [{ text: 'Okay' }]);
+    }
+  }, [error]);
+
+  const authHandler = async () => {
     let action;
     if (isSignup) {
       action = signup(formState.inputValues.email, formState.inputValues.password);
     } else {
       action = login(formState.inputValues.email, formState.inputValues.password);
     }
-    dispatch(action);
+
+    setError(null);
+    setIsLoading(true);
+    try {
+      await dispatch(action);
+    } catch (err: any) {
+      setError(err.message);
+    }
+
+    setIsLoading(false);
   };
 
   const inputChangeHandler = useCallback(
@@ -100,7 +117,12 @@ export const Auth = () => {
           />
 
           <View style={s.buttonContainer}>
-            <Button title={isSignup ? 'Sign Up' : 'Login'} color={Colors.primary} onPress={authHandler} />
+            {isLoading ? (
+              <ActivityIndicator size="small" color={Colors.primary} />
+            ) : (
+              <Button title={isSignup ? 'Sign Up' : 'Login'} color={Colors.primary} onPress={authHandler} />
+            )}
+
             <Button
               title={`Switch to ${isSignup ? 'Login' : 'Sign Up'}`}
               color={Colors.accent}

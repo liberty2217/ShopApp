@@ -21,13 +21,23 @@ export const signup = (email: string, password: string) => {
       },
     );
 
-    console.log(response);
     if (!response.ok) {
-      throw new Error('Something went wrong!');
+      const errorResData = await response.json();
+      const errorId = errorResData.error.message;
+
+      let message = 'Something went wrong';
+
+      if (errorId === 'EMAIL_NOT_FOUND') {
+        message = 'This E-mail not found';
+      } else if (errorId === 'INVALID_PASSWORD') {
+        message = 'This password is not valid';
+      } else if (errorId === 'EMAIL_EXISTS') {
+        message = 'This E-mail already exists';
+      }
+      throw new Error(message);
     }
 
     const resData = await response.json();
-    console.log(resData);
 
     dispatch({ type: SIGNUP });
   };
