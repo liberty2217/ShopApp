@@ -12,8 +12,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
-import { ShopNavigator } from './src/navigation/ShopNavigator';
+
 import { store } from './src/store/app/rootReducer';
+
+import { ShopNavigator } from './src/navigation/ShopNavigator';
+import { AuthentificationNavigator } from './src/navigation/AuthNavigator';
+import { OrdersNavigator } from './src/navigation/OrdersNavigator';
 
 const s = StyleSheet.create({
   gestureWrapper: { flex: 1 },
@@ -24,7 +28,7 @@ const App = () => {
     <Provider store={store}>
       <GestureHandlerRootView style={s.gestureWrapper}>
         <NavigationContainer>
-          <ShopNavigator />
+          <AuthentificationNavigator />
         </NavigationContainer>
       </GestureHandlerRootView>
     </Provider>

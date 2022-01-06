@@ -21,7 +21,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.1.0, @babel/core@npm:^7.1.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.14.0, @babel/core@npm:^7.7.2":
+"@babel/core@npm:^7.1.0, @babel/core@npm:^7.1.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.14.0, @babel/core@npm:^7.7.2, @babel/core@npm:^7.8.0":
   version: 7.16.7
   resolution: "@babel/core@npm:7.16.7"
   dependencies:
@@ -1182,9 +1182,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/core@npm:^27.4.6":
-  version: 27.4.6
-  resolution: "@jest/core@npm:27.4.6"
+"@jest/core@npm:^27.4.7":
+  version: 27.4.7
+  resolution: "@jest/core@npm:27.4.7"
   dependencies:
     "@jest/console": ^27.4.6
     "@jest/reporters": ^27.4.6
@@ -1198,7 +1198,7 @@ __metadata:
     exit: ^0.1.2
     graceful-fs: ^4.2.4
     jest-changed-files: ^27.4.2
-    jest-config: ^27.4.6
+    jest-config: ^27.4.7
     jest-haste-map: ^27.4.6
     jest-message-util: ^27.4.6
     jest-regex-util: ^27.4.0
@@ -1219,7 +1219,7 @@ __metadata:
   peerDependenciesMeta:
     node-notifier:
       optional: true
-  checksum: 903c2c45e74a276795453a743b6ca8344e3bad8d8b169760286ca4cc828c1d51e903f67971b9e244ebf9b88286a99bccc587a23a28fea23fd80ae846113b3834
+  checksum: 24ed123ef1819fa8c6069706760efac9904ee8824b22c346259be2017d820b5e578a4d444339448a576a0158e6fec91d18fdedb201bc97d7390b105d665f3642
   languageName: node
   linkType: hard
 
@@ -3877,9 +3877,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.17":
-  version: 1.4.35
-  resolution: "electron-to-chromium@npm:1.4.35"
-  checksum: c4d7943abf370ca294129cda8432ea2f83c5b867e708aa33c7953e10f741803cfb23f83ba7341b6a76d76efb649f967b8e7b130ebe1e262971c764537ea5fd9b
+  version: 1.4.36
+  resolution: "electron-to-chromium@npm:1.4.36"
+  checksum: bc3cba942c9919837f47abd7450c4a775658cec6be0e2ec8b9cff80897f09b587e60f7581803a5656f50514e00b486cc694829a244ba7364bdf5e8cc40f150a3
   languageName: node
   linkType: hard
 
@@ -5316,14 +5316,14 @@ __metadata:
   linkType: hard
 
 "import-local@npm:^3.0.2":
-  version: 3.0.3
-  resolution: "import-local@npm:3.0.3"
+  version: 3.1.0
+  resolution: "import-local@npm:3.1.0"
   dependencies:
     pkg-dir: ^4.2.0
     resolve-cwd: ^3.0.0
   bin:
     import-local-fixture: fixtures/cli.js
-  checksum: 38ae57d35e7fd5f63b55895050c798d4dd590e4e2337e9ffa882fb3ea7a7716f3162c7300e382e0a733ca5d07b389fadff652c00fa7b072d5cb6ea34ca06b179
+  checksum: bfcdb63b5e3c0e245e347f3107564035b128a414c4da1172a20dc67db2504e05ede4ac2eee1252359f78b0bfd7b19ef180aec427c2fce6493ae782d73a04cddd
   languageName: node
   linkType: hard
 
@@ -5469,11 +5469,11 @@ __metadata:
   linkType: hard
 
 "is-core-module@npm:^2.2.0, is-core-module@npm:^2.8.0":
-  version: 2.8.0
-  resolution: "is-core-module@npm:2.8.0"
+  version: 2.8.1
+  resolution: "is-core-module@npm:2.8.1"
   dependencies:
     has: ^1.0.3
-  checksum: f8b52714891e1a6c6577fcb8d5e057bab064a7a30954aab6beb5092e311473eb8da57afd334de4981dc32409ffca998412efc3a2edceb9e397cef6098d21dd91
+  checksum: 418b7bc10768a73c41c7ef497e293719604007f88934a6ffc5f7c78702791b8528102fb4c9e56d006d69361549b3d9519440214a74aefc7e0b79e5e4411d377f
   languageName: node
   linkType: hard
 
@@ -5840,18 +5840,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-cli@npm:^27.4.6":
-  version: 27.4.6
-  resolution: "jest-cli@npm:27.4.6"
+"jest-cli@npm:^27.4.7":
+  version: 27.4.7
+  resolution: "jest-cli@npm:27.4.7"
   dependencies:
-    "@jest/core": ^27.4.6
+    "@jest/core": ^27.4.7
     "@jest/test-result": ^27.4.6
     "@jest/types": ^27.4.2
     chalk: ^4.0.0
     exit: ^0.1.2
     graceful-fs: ^4.2.4
     import-local: ^3.0.2
-    jest-config: ^27.4.6
+    jest-config: ^27.4.7
     jest-util: ^27.4.2
     jest-validate: ^27.4.6
     prompts: ^2.0.1
@@ -5863,14 +5863,15 @@ __metadata:
       optional: true
   bin:
     jest: bin/jest.js
-  checksum: 924dd24b74f33f79fa8cbc577d4c13aa8645b41d53c4678b6f999dd02d7fe027c397db1898e4b4cda08001efb65dd29ed4492e2818d149098092df8314ed441b
+  checksum: bf301039f1c14ef3fa2b7699b7b94328faa5549e34cb1573610c894bedd036ad36e31e6af436e11b3aa85e22e409a05d1fef1624bebc2da7ed416ce969b87307
   languageName: node
   linkType: hard
 
-"jest-config@npm:^27.4.6":
-  version: 27.4.6
-  resolution: "jest-config@npm:27.4.6"
+"jest-config@npm:^27.4.7":
+  version: 27.4.7
+  resolution: "jest-config@npm:27.4.7"
   dependencies:
+    "@babel/core": ^7.8.0
     "@jest/test-sequencer": ^27.4.6
     "@jest/types": ^27.4.2
     babel-jest: ^27.4.6
@@ -5897,7 +5898,7 @@ __metadata:
   peerDependenciesMeta:
     ts-node:
       optional: true
-  checksum: 90dafbf8bcc01ffab0bc085bd8ca5f9866f6c7a13202c3031ab6a668ed4a9a21e9eb4537ea0cb575765dc3099e70f2f9089bb25a4627b05d2bde50f06bddcc33
+  checksum: 23d5bacc483b2674d6efcd6bfc66bcde7c2b428511b50d17a22a2750d85bfc23753f9e41f504411e411e848e34ec61244bdae9da8782df4ada6e284106f71a4d
   languageName: node
   linkType: hard
 
@@ -6360,12 +6361,12 @@ __metadata:
   linkType: hard
 
 "jest@npm:^27.4.5":
-  version: 27.4.6
-  resolution: "jest@npm:27.4.6"
+  version: 27.4.7
+  resolution: "jest@npm:27.4.7"
   dependencies:
-    "@jest/core": ^27.4.6
+    "@jest/core": ^27.4.7
     import-local: ^3.0.2
-    jest-cli: ^27.4.6
+    jest-cli: ^27.4.7
   peerDependencies:
     node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
   peerDependenciesMeta:
@@ -6373,7 +6374,7 @@ __metadata:
       optional: true
   bin:
     jest: bin/jest.js
-  checksum: 5b7bf3d1017f96110c6197e301f0e7bf1733ab300034e4f00ef0921e5fbf2e26e167454a7637bdac46df14385b1e1386cd2ad7d9aefe5793c60f775be2043534
+  checksum: 28ce948b30c074907393f37553acac4422d0f60190776e62b3403e4c742d33dd6012e3a20748254a43e38b5b4ce52d813b13a3a5be1d43d6d12429bd08ce1a23
   languageName: node
   linkType: hard
 
@@ -8263,14 +8264,14 @@ __metadata:
   linkType: hard
 
 "query-string@npm:^7.0.0":
-  version: 7.0.1
-  resolution: "query-string@npm:7.0.1"
+  version: 7.1.0
+  resolution: "query-string@npm:7.1.0"
   dependencies:
     decode-uri-component: ^0.2.0
     filter-obj: ^1.1.0
     split-on-first: ^1.0.0
     strict-uri-encode: ^2.0.0
-  checksum: 2eb990c0eaa80998d074aac2ad5bcc7f21fa2e53a7d129d19883abe724a2eedb987ca81b731755307431914b0f958767bfe7c5f7433d0974a1650b5d313e5618
+  checksum: 4594a0a092772eb6854310feea85e34f8dcf70df494776a45b9e5be53621ffbcf930ae669974e4e171ce5e0f29a837e9821d48db843106dd94ee390f6f5ac857
   languageName: node
   linkType: hard
 
