@@ -7,4 +7,9 @@ export const style = StyleSheet.create({
     textAlign: 'center',
     marginTop: '50%',
   },
+  centered: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

@@ -26,7 +26,6 @@ export const deleteProduct = (productId: Products['id']) => {
 
 export const fetchProducts = () => {
   return async (dispatch: Dispatch<SetProductsAction>) => {
-    // any async code you want!
     try {
       const response = await fetch('https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/products.json');
 

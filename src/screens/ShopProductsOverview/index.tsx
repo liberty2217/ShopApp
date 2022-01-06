@@ -11,7 +11,6 @@ import { addToCart } from '../../store/actions/cart';
 import { useAppDispatch, useAppSelector } from '../../store/app/rootReducer';
 import { fetchProducts } from '../../store/actions/products';
 import { styles as s } from './styles';
-import { ErrorCallback } from 'typescript';
 
 type Props = NativeStackScreenProps<ProductStackParamList, 'ShopProductsOverview'>;
 
@@ -19,20 +18,21 @@ export const ShopProductsOverview: React.FC<Props> = (props) => {
   const { navigation } = props;
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
 
   const dispatch = useAppDispatch();
 
   const loadProducts = useCallback(async () => {
     setError(null);
-    setIsLoading(true);
+    setIsRefreshing(true);
+
     try {
       await dispatch(fetchProducts());
     } catch (err: any) {
       setError(err.message);
     }
-
-    setIsLoading(false);
+    setIsRefreshing(false);
   }, [dispatch]);
 
   useEffect(() => {
@@ -41,7 +41,10 @@ export const ShopProductsOverview: React.FC<Props> = (props) => {
     return focusSubscription;
   });
   useEffect(() => {
-    loadProducts();
+    setIsLoading(true);
+    loadProducts().then(() => {
+      setIsLoading(false);
+    });
   }, [loadProducts]);
 
   const products = useAppSelector((state) => state.products.availableProducts);
@@ -80,6 +83,8 @@ export const ShopProductsOverview: React.FC<Props> = (props) => {
 
   return (
     <FlatList
+      onRefresh={loadProducts}
+      refreshing={isRefreshing}
       data={products}
       renderItem={(itemData) => (
         <ShopProductItem
