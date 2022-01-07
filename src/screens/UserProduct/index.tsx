@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { Alert, Button, FlatList } from 'react-native';
+import { Alert, Button, FlatList, View, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { ShopProductItem } from '../../components/ShopProductItem';
 import { Colors } from '../../constants';
@@ -8,6 +8,7 @@ import { Products } from '../../data/type';
 import { AdminStackParamList } from '../../navigation/AdminNavigator';
 import { deleteProduct } from '../../store/actions/products';
 import { useAppSelector } from '../../store/app/rootReducer';
+import { style as s } from './styles';
 
 type Props = NativeStackScreenProps<AdminStackParamList, 'UserProducts'>;
 
@@ -24,6 +25,14 @@ export const UserProducts: React.FC<Props> = (props) => {
       { text: 'Yes', style: 'destructive', onPress: () => dispatch(deleteProduct(id)) },
     ]);
   };
+
+  if (userProducts.length === 0) {
+    return (
+      <View style={s.center}>
+        <Text>No products found, maybe start creating some</Text>
+      </View>
+    );
+  }
 
   return (
     <FlatList

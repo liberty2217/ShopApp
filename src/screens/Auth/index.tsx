@@ -1,9 +1,11 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { ActivityIndicator, Alert, Button, KeyboardAvoidingView, ScrollView, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Card } from '../../components/UI/Card';
 import { Input } from '../../components/UI/Input';
 import { Colors } from '../../constants';
+import { AuthStackParamList } from '../../navigation/AuthNavigator';
 import { login, signup } from '../../store/actions/auth';
 import { styles as s } from './styles';
 
@@ -32,7 +34,11 @@ const formReducer = (state, action) => {
   return state;
 };
 
-export const Auth = () => {
+type Props = NativeStackScreenProps<AuthStackParamList, 'Auth'>;
+
+export const Auth: React.FC<Props> = (props) => {
+  const { navigation } = props;
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [isSignup, setIsSignup] = useState(false);
@@ -69,11 +75,11 @@ export const Auth = () => {
     setIsLoading(true);
     try {
       await dispatch(action);
+      navigation.navigate('Shop');
     } catch (err: any) {
       setError(err.message);
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   const inputChangeHandler = useCallback(

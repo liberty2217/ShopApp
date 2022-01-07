@@ -1,15 +1,18 @@
+import { ThunkAction } from '@reduxjs/toolkit';
 import { format } from 'date-fns';
-import { Dispatch } from 'react';
 import { Products } from '../../data/type';
+import { RootState } from '../app/rootReducer';
 import { ActionAddOrder, ActionSetOrder, Order } from '../reducers/orders';
 
 export const ADD_ORDER = 'ADD_ORDER';
 export const SET_ORDERS = 'SET_ORDER';
 
-export const fetchOrders = () => {
-  return async (dispatch: Dispatch<ActionSetOrder>) => {
+export const fetchOrders = (): ThunkAction<Promise<void>, RootState, unknown, ActionSetOrder> => {
+  return async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+
     try {
-      const response = await fetch('https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/orders/u1.json');
+      const response = await fetch(`https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/orders/${userId}.json`);
 
       if (!response.ok) {
         // if repsonse is 400 / 500 status code
@@ -48,20 +51,28 @@ export type TransformedCartItems = {
   sum: number;
 };
 
-export const addOrder = (cartItems: TransformedCartItems[], totalAmount: number) => {
-  return async (dispatch: Dispatch<ActionAddOrder>) => {
+export const addOrder = (
+  cartItems: TransformedCartItems[],
+  totalAmount: number,
+): ThunkAction<Promise<void>, RootState, unknown, ActionAddOrder> => {
+  return async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+    const token = getState().auth.token;
     const date = new Date();
-    const response = await fetch('https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/orders/u1.json', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/orders/${userId}.json?auth=${token}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          cartItems,
+          totalAmount,
+          date: format(date, 'dd/MM/yyyy'),
+        }),
       },
-      body: JSON.stringify({
-        cartItems,
-        totalAmount,
-        date: format(date, 'dd/MM/yyyy'),
-      }),
-    });
+    );
 
     if (!response.ok) {
       throw new Error('Something went wrong');

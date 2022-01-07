@@ -9,13 +9,7 @@ export interface ActionDeleteProduct {
 
 export interface ActionCreateProduct {
   type: typeof CREATE_PRODUCT;
-  productData: {
-    id: string;
-    title: Products['title'];
-    description: Products['description'];
-    imageUrl: Products['imageUrl'];
-    price: Products['price'];
-  };
+  productData: Products;
 }
 
 export interface ActionUpdateProduct {
@@ -28,16 +22,21 @@ export interface ActionUpdateProduct {
   };
 }
 
-export interface SetProductsAction {
+export interface ActionSetProducts {
   type: typeof SET_PRODUCTS;
   products: Products[];
+  userProducts: Products[];
 }
 
-type Actions = ActionDeleteProduct | ActionCreateProduct | ActionUpdateProduct | SetProductsAction;
+type Actions = ActionDeleteProduct | ActionCreateProduct | ActionUpdateProduct | ActionSetProducts;
 
-const initialState = {
-  availableProducts: PRODUCTS,
-  userProducts: PRODUCTS.filter((product) => product.ownerId === 'u1'),
+type InitialState = {
+  availableProducts: Products[];
+  userProducts: Products[];
+};
+const initialState: InitialState = {
+  availableProducts: [],
+  userProducts: [],
 };
 
 export const productsReducer = (state = initialState, action: Actions) => {
@@ -45,14 +44,14 @@ export const productsReducer = (state = initialState, action: Actions) => {
     case SET_PRODUCTS: {
       return {
         availableProducts: action.products,
-        userProducts: action.products,
+        userProducts: action.userProducts,
       };
     }
 
     case CREATE_PRODUCT: {
       const newProduct: Products = {
         id: action.productData.id,
-        ownerId: 'u1',
+        ownerId: action.productData.ownerId,
         title: action.productData.title,
         imageUrl: action.productData.imageUrl,
         description: action.productData.description,

@@ -1,16 +1,27 @@
+import { ThunkAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'react';
 import { Products } from '../../data/type';
-import { ActionCreateProduct, ActionDeleteProduct, ActionUpdateProduct, SetProductsAction } from '../reducers/products';
+import { RootState } from '../app/rootReducer';
+import { ActionCreateProduct, ActionDeleteProduct, ActionUpdateProduct, ActionSetProducts } from '../reducers/products';
 
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const SET_PRODUCTS = 'SET_PRODUCTS';
 
-export const deleteProduct = (productId: Products['id']) => {
-  return async (dispatch: Dispatch<ActionDeleteProduct>) => {
+type ActionSetProduct = {
+  type: typeof SET_PRODUCTS;
+  products: Products[];
+};
+
+export const deleteProduct = (
+  productId: Products['id'],
+): ThunkAction<void, RootState, unknown, ActionDeleteProduct> => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+
     const response = await fetch(
-      `https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/products/${productId}.json`,
+      `https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/products/${productId}.json?auth=${token}`,
       {
         method: 'DELETE',
       },
@@ -24,8 +35,10 @@ export const deleteProduct = (productId: Products['id']) => {
   };
 };
 
-export const fetchProducts = () => {
-  return async (dispatch: Dispatch<SetProductsAction>) => {
+export const fetchProducts = (): ThunkAction<void, RootState, unknown, ActionSetProduct> => {
+  return async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+
     try {
       const response = await fetch('https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/products.json');
 
@@ -41,7 +54,7 @@ export const fetchProducts = () => {
       for (const key in resData) {
         loadedProducts.push({
           id: key,
-          ownerId: 'u1',
+          ownerId: resData[key].ownerId,
           title: resData[key].title,
           imageUrl: resData[key].imageUrl,
           description: resData[key].description,
@@ -52,6 +65,7 @@ export const fetchProducts = () => {
       dispatch({
         type: SET_PRODUCTS,
         products: loadedProducts,
+        userProducts: loadedProducts.filter((prod) => prod.ownerId === userId),
       });
     } catch (err) {
       console.log('handling error here');
@@ -65,21 +79,28 @@ export const createProduct = (
   description: Products['description'],
   imageUrl: Products['imageUrl'],
   price: Products['price'],
-) => {
-  return async (dispatch: Dispatch<ActionCreateProduct>) => {
+): ThunkAction<void, RootState, unknown, ActionCreateProduct> => {
+  return async (dispatch, getState) => {
     // any async code you want!
-    const response = await fetch('https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/products.json', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const token = getState().auth.token;
+    const userId = getState().auth.userId;
+
+    const response = await fetch(
+      `https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/products.json?auth=${token}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          imageUrl,
+          price,
+          ownerId: userId,
+        }),
       },
-      body: JSON.stringify({
-        title,
-        description,
-        imageUrl,
-        price,
-      }),
-    });
+    );
 
     const resData = await response.json();
 
@@ -91,6 +112,7 @@ export const createProduct = (
         description,
         imageUrl,
         price,
+        ownerId: userId,
       },
     });
   };
@@ -101,19 +123,23 @@ export const updateProduct = (
   title: Products['title'],
   description: Products['description'],
   imageUrl: Products['imageUrl'],
-) => {
-  return async (dispatch: Dispatch<ActionUpdateProduct>) => {
-    const response = await fetch(`https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/products/${id}.json`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
+): ThunkAction<void, RootState, unknown, ActionUpdateProduct> => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const response = await fetch(
+      `https://rn-complete-guide-81bea-default-rtdb.firebaseio.com/products/${id}.json?auth=${token}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          imageUrl,
+        }),
       },
-      body: JSON.stringify({
-        title,
-        description,
-        imageUrl,
-      }),
-    });
+    );
 
     if (!response.ok) {
       throw new Error('Something wen wrong!');

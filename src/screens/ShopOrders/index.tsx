@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import { ShopOrderItem } from '../../components/ShopOrderItem';
@@ -28,11 +27,16 @@ export const ShopOrders = () => {
     );
   }
 
-  const emptyOrderList = orders.length === 0 ? <Text style={s.emptyListText}>There are no orders yet</Text> : null;
+  if (orders.length === 0) {
+    return (
+      <View style={s.centered}>
+        <Text>No orders found, maybe start ordering some</Text>
+      </View>
+    );
+  }
 
   return (
     <View>
-      {emptyOrderList}
       <FlatList
         data={orders}
         renderItem={(itemData) => (

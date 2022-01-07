@@ -1,10 +1,22 @@
-import { Dispatch } from 'react';
+import { ThunkAction } from '@reduxjs/toolkit';
+import { RootState } from '../app/rootReducer';
 
 export const SIGNUP = 'SIGNUP';
 export const LOGIN = 'LOGIN';
 
-export const signup = (email: string, password: string) => {
-  return async (dispatch: Dispatch<{ type: typeof SIGNUP }>) => {
+export type AuthAction = {
+  type: typeof SIGNUP | typeof LOGIN;
+  token: string;
+  userId: string;
+};
+
+type SignupResultResponse = {
+  idToken: string;
+  localId: string;
+};
+
+export const signup = (email: string, password: string): ThunkAction<void, RootState, unknown, AuthAction> => {
+  return async (dispatch) => {
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBIzLitTxf-IWs4ewZEmlccGeZYlTCtuYA',
 
@@ -37,14 +49,14 @@ export const signup = (email: string, password: string) => {
       throw new Error(message);
     }
 
-    const resData = await response.json();
+    const resData: SignupResultResponse = await response.json();
 
-    dispatch({ type: SIGNUP });
+    dispatch({ type: SIGNUP, token: resData.idToken, userId: resData.localId });
   };
 };
 
-export const login = (email: string, password: string) => {
-  return async (dispatch: Dispatch<{ type: typeof LOGIN }>) => {
+export const login = (email: string, password: string): ThunkAction<void, RootState, unknown, AuthAction> => {
+  return async (dispatch) => {
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBIzLitTxf-IWs4ewZEmlccGeZYlTCtuYA',
       {
@@ -60,14 +72,12 @@ export const login = (email: string, password: string) => {
       },
     );
 
-    console.log(response);
     if (!response.ok) {
       throw new Error('Something went wrong!');
     }
 
-    const resData = await response.json();
-    console.log(resData);
+    const resData: SignupResultResponse = await response.json();
 
-    dispatch({ type: LOGIN });
+    dispatch({ type: LOGIN, token: resData.idToken, userId: resData.localId });
   };
 };

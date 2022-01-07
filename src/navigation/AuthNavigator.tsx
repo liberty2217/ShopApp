@@ -3,7 +3,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Auth } from '../screens/Auth';
 import { Colors } from '../constants';
 
-const Authentification = createNativeStackNavigator();
+export type AuthStackParamList = {
+  Auth: undefined;
+};
+
+const Authentification = createNativeStackNavigator<AuthStackParamList>();
 
 export const AuthentificationNavigator = () => {
   return (
