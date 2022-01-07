@@ -1,8 +1,14 @@
 import { ThunkAction } from '@reduxjs/toolkit';
 import { RootState } from '../app/rootReducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const SIGNUP = 'SIGNUP';
-export const LOGIN = 'LOGIN';
+// export const SIGNUP = 'SIGNUP';
+// export const LOGIN = 'LOGIN';
+export const AUTHENTICATE = 'AUTHENTICATE';
+
+export const authenticate = (userId: string, token: string) => {
+  return { type: AUTHENTICATE, userId: userId, token: token };
+};
 
 export type AuthAction = {
   type: typeof SIGNUP | typeof LOGIN;
@@ -13,6 +19,15 @@ export type AuthAction = {
 type SignupResultResponse = {
   idToken: string;
   localId: string;
+  expiresIn: string; // number in string format with milliseconds to define when token gets invalid
+};
+
+// AsyncStorage
+const saveDataToStorage = (token: string, userId: string, expirationDate: Date) => {
+  AsyncStorage.setItem(
+    'userData',
+    JSON.stringify({ token: token, userId: userId, expiryDate: expirationDate.toISOString() }),
+  );
 };
 
 export const signup = (email: string, password: string): ThunkAction<void, RootState, unknown, AuthAction> => {
@@ -51,7 +66,10 @@ export const signup = (email: string, password: string): ThunkAction<void, RootS
 
     const resData: SignupResultResponse = await response.json();
 
-    dispatch({ type: SIGNUP, token: resData.idToken, userId: resData.localId });
+    // dispatch({ type: SIGNUP, token: resData.idToken, userId: resData.localId });
+    dispatch(authenticate(resData.localId, resData.token));
+    const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000);
+    saveDataToStorage(resData.idToken, resData.localId, expirationDate);
   };
 };
 
@@ -78,6 +96,10 @@ export const login = (email: string, password: string): ThunkAction<void, RootSt
 
     const resData: SignupResultResponse = await response.json();
 
-    dispatch({ type: LOGIN, token: resData.idToken, userId: resData.localId });
+    // dispatch({ type: LOGIN, token: resData.idToken, userId: resData.localId });
+    dispatch(authenticate(resData.localId, resData.token));
+
+    const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000);
+    saveDataToStorage(resData.idToken, resData.localId, expirationDate);
   };
 };
