@@ -36,10 +36,11 @@ export const ShopProductsOverview: React.FC<Props> = (props) => {
   }, [dispatch]);
 
   useEffect(() => {
-    const focusSubscription = navigation.addListener('focus', loadProducts);
+    const unsubcribe = navigation.addListener('focus', loadProducts);
 
-    return focusSubscription;
-  });
+    return unsubcribe();
+  }, [loadProducts, navigation]);
+
   useEffect(() => {
     setIsLoading(true);
     loadProducts().then(() => {

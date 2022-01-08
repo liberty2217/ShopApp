@@ -16,7 +16,7 @@ export const OrdersNavigator = () => {
         },
       }}
     >
-      <Orders.Screen name="OrdersScreen" component={ShopOrders} />
+      <Orders.Screen name="Orders" component={ShopOrders} />
     </Orders.Navigator>
   );
 };

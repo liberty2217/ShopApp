@@ -8,6 +8,7 @@ import pencil from '../assets/icons/pencil';
 import check from '../assets/icons/check';
 import logoutBtn from '../assets/icons/logoutBtn';
 import { logout } from '../store/actions/auth';
+import { useDispatch } from 'react-redux';
 
 export type AdminStackParamList = {
   UserProducts: undefined;
@@ -17,10 +18,11 @@ export type AdminStackParamList = {
 const Admin = createNativeStackNavigator<AdminStackParamList>();
 
 export const AdminNavigator = () => {
+  const dispatch = useDispatch();
   return (
     <Admin.Navigator
       screenOptions={{
-        headerTitle: 'Your Products',
+        headerTitle: 'Edit Products',
         headerTitleStyle: {
           fontFamily: 'OpenSans-Bold',
           color: Colors.primary,
@@ -32,15 +34,16 @@ export const AdminNavigator = () => {
         name="UserProducts"
         component={UserProducts}
         options={({ navigation }) => ({
-          headerRight: () => (
-            <UIIconButton
-              onPress={() => {
-                logout();
-                navigation.navigate('Auth');
-              }}
-              icon={logoutBtn({ color: Colors.primary })}
-            />
-          ),
+          headerRight: () => {
+            return (
+              <UIIconButton
+                onPress={() => {
+                  dispatch(logout());
+                }}
+                icon={logoutBtn({ color: Colors.primary })}
+              />
+            );
+          },
           headerLeft: () => (
             <UIIconButton
               onPress={() => navigation.navigate('UserEditProduct')}

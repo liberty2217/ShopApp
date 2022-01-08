@@ -18,6 +18,7 @@ import { store } from './src/store/app/rootReducer';
 import { ShopNavigator } from './src/navigation/ShopNavigator';
 import { AuthentificationNavigator } from './src/navigation/AuthNavigator';
 import { OrdersNavigator } from './src/navigation/OrdersNavigator';
+import { AppNavigator } from './src/navigation/AppNavigator';
 
 const s = StyleSheet.create({
   gestureWrapper: { flex: 1 },
@@ -27,9 +28,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <GestureHandlerRootView style={s.gestureWrapper}>
-        <NavigationContainer>
-          <AuthentificationNavigator />
-        </NavigationContainer>
+        <AppNavigator />
       </GestureHandlerRootView>
     </Provider>
   );

@@ -75,7 +75,6 @@ export const Auth: React.FC<Props> = (props) => {
     setIsLoading(true);
     try {
       await dispatch(action);
-      navigation.navigate('Shop');
     } catch (err: any) {
       setError(err.message);
       setIsLoading(false);
