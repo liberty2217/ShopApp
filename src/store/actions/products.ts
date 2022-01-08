@@ -1,13 +1,37 @@
 import { ThunkAction } from '@reduxjs/toolkit';
-import { Dispatch } from 'react';
 import { Products } from '../../data/type';
 import { RootState } from '../app/rootReducer';
-import { ActionCreateProduct, ActionDeleteProduct, ActionUpdateProduct, ActionSetProducts } from '../reducers/products';
 
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const SET_PRODUCTS = 'SET_PRODUCTS';
+
+export type ActionDeleteProduct = {
+  type: typeof DELETE_PRODUCT;
+  pid: Products['id'];
+};
+
+export type ActionCreateProduct = {
+  type: typeof CREATE_PRODUCT;
+  productData: Products;
+};
+
+export type ActionUpdateProduct = {
+  type: typeof UPDATE_PRODUCT;
+  pid: Products['id'];
+  productData: {
+    title: Products['title'];
+    description: Products['description'];
+    imageUrl: Products['imageUrl'];
+  };
+};
+
+export type ActionSetProducts = {
+  type: typeof SET_PRODUCTS;
+  products: Products[];
+  userProducts: Products[];
+};
 
 type ActionSetProduct = {
   type: typeof SET_PRODUCTS;
@@ -112,7 +136,7 @@ export const createProduct = (
         description,
         imageUrl,
         price,
-        ownerId: userId,
+        ownerId: userId!,
       },
     });
   };

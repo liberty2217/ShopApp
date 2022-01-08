@@ -13,7 +13,7 @@ type ShopCartItemProps = {
   quantity: number;
   title: string;
   amount: number;
-  onRemove?: () => any;
+  onRemove?: () => void;
 };
 
 export const ShopCartItem: React.FC<ShopCartItemProps> = (props) => {

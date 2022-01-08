@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { View, Button, Text, ActivityIndicator } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { useDispatch } from 'react-redux';
 import { ShopCartItem } from '../../components/ShopCartItem';
 import { Card } from '../../components/UI/Card';
 import { Colors } from '../../constants';
 import { removeFromCart } from '../../store/actions/cart';
-import { addOrder } from '../../store/actions/orders';
-import { useAppSelector } from '../../store/app/rootReducer';
+import { addOrder, TransformedCartItems } from '../../store/actions/orders';
+import { useAppDispatch, useAppSelector } from '../../store/app/rootReducer';
 import { styles as s } from './styles';
 
 export const ShopCart = () => {
@@ -16,7 +15,7 @@ export const ShopCart = () => {
   const cartTotalAmount = useAppSelector((state) => state.cart.totalAmount);
 
   const cartItems = useAppSelector((state) => {
-    const transformedCartItems = [];
+    const transformedCartItems: TransformedCartItems[] = [];
     for (const key in state.cart.items) {
       transformedCartItems.push({
         productId: key,
@@ -30,7 +29,7 @@ export const ShopCart = () => {
     return transformedCartItems;
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const sendOrderHandler = async () => {
     setIsLoading(true);

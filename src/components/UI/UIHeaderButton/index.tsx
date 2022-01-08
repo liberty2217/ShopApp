@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SvgXml } from 'react-native-svg';
 
 type UIIconButton = {
-  onPress?: () => any;
+  onPress?: () => void;
   icon: string;
 };
 

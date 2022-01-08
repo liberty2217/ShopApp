@@ -1,13 +1,12 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Alert, Button, FlatList, View, Text } from 'react-native';
-import { useDispatch } from 'react-redux';
 import { ShopProductItem } from '../../components/ShopProductItem';
 import { Colors } from '../../constants';
 import { Products } from '../../data/type';
 import { AdminStackParamList } from '../../navigation/AdminNavigator';
 import { deleteProduct } from '../../store/actions/products';
-import { useAppSelector } from '../../store/app/rootReducer';
+import { useAppDispatch, useAppSelector } from '../../store/app/rootReducer';
 import { style as s } from './styles';
 
 type Props = NativeStackScreenProps<AdminStackParamList, 'UserProducts'>;
@@ -17,7 +16,7 @@ export const UserProducts: React.FC<Props> = (props) => {
 
   const userProducts = useAppSelector((state) => state.products.userProducts);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const deleteHandler = (id: Products['id']) => {
     Alert.alert('Are you sure?', 'Do you really want to delete this item?', [

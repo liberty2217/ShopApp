@@ -25,9 +25,3 @@ export const AuthentificationNavigator = () => {
     </Authentification.Navigator>
   );
 };
-
-// const MainNavigator = createNativeStackNavigator({
-//   Startup: Startup,
-//   Auth: AuthentificationNavigator,
-//   Shop: ShopNavigator,
-// });

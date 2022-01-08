@@ -40,12 +40,7 @@ export const ShopOrders = () => {
       <FlatList
         data={orders}
         renderItem={(itemData) => (
-          <ShopOrderItem
-            amount={itemData.item.totalAmount}
-            // date={format(new Date(itemData.item.date), 'dd/MM/yyyy')}
-            date={itemData.item.date}
-            items={itemData.item.items}
-          />
+          <ShopOrderItem amount={itemData.item.totalAmount} date={itemData.item.date} items={itemData.item.items} />
         )}
       />
     </View>

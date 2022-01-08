@@ -2,10 +2,39 @@ import { ThunkAction } from '@reduxjs/toolkit';
 import { format } from 'date-fns';
 import { Products } from '../../data/type';
 import { RootState } from '../app/rootReducer';
-import { ActionAddOrder, ActionSetOrder, Order } from '../reducers/orders';
 
 export const ADD_ORDER = 'ADD_ORDER';
 export const SET_ORDERS = 'SET_ORDER';
+
+export type TransformedCartItems = {
+  productId: Products['id'];
+  productTitle: Products['title'];
+  productPrice: Products['price'];
+  quantity: number;
+  sum: number;
+};
+
+export type Order = {
+  id: string;
+  items: TransformedCartItems[];
+  totalAmount: number;
+  date: string;
+};
+
+export interface ActionAddOrder {
+  type: typeof ADD_ORDER;
+  orderData: {
+    id: string;
+    items: TransformedCartItems[];
+    amount: number;
+    date: string;
+  };
+}
+
+export interface ActionSetOrder {
+  type: typeof SET_ORDERS;
+  orders: Order[];
+}
 
 export const fetchOrders = (): ThunkAction<Promise<void>, RootState, unknown, ActionSetOrder> => {
   return async (dispatch, getState) => {
@@ -41,14 +70,6 @@ export const fetchOrders = (): ThunkAction<Promise<void>, RootState, unknown, Ac
       throw err;
     }
   };
-};
-
-export type TransformedCartItems = {
-  productId: Products['id'];
-  productTitle: Products['title'];
-  productPrice: Products['price'];
-  quantity: number;
-  sum: number;
 };
 
 export const addOrder = (

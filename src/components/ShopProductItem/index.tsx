@@ -7,7 +7,7 @@ type ShopProductItem = {
   image: string;
   title: string;
   price: number;
-  onSelect: () => any;
+  onSelect: () => void;
 };
 
 export const ShopProductItem: React.FC<ShopProductItem> = (props) => {

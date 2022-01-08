@@ -1,29 +1,4 @@
-import { ADD_ORDER, SET_ORDERS, TransformedCartItems } from '../actions/orders';
-import { format } from 'date-fns';
-
-export type Order = {
-  id: string;
-  items: TransformedCartItems[];
-  totalAmount: number;
-  date: string;
-};
-
-export interface ActionAddOrder {
-  type: typeof ADD_ORDER;
-  orderData: {
-    id: string;
-    items: TransformedCartItems[];
-    amount: number;
-    date: string;
-  };
-}
-
-export interface ActionSetOrder {
-  type: typeof SET_ORDERS;
-  orders: Order[];
-}
-
-type Action = ActionAddOrder | ActionSetOrder;
+import { ActionAddOrder, ActionSetOrder, ADD_ORDER, Order, SET_ORDERS } from '../actions/orders';
 
 type OrdersReducerInitialState = {
   orders: Order[];
@@ -32,6 +7,8 @@ type OrdersReducerInitialState = {
 const initialState: OrdersReducerInitialState = {
   orders: [],
 };
+
+type Action = ActionAddOrder | ActionSetOrder;
 
 export const ordersReducer = (state = initialState, action: Action) => {
   switch (action.type) {

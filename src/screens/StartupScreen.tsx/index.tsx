@@ -7,9 +7,7 @@ import { styles as s } from './styles';
 import { useAppDispatch } from '../../store/app/rootReducer';
 import { authenticate, setDidTryAL } from '../../store/actions/auth';
 
-export const Startup = (props) => {
-  const { navigation } = props;
-
+export const Startup = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {

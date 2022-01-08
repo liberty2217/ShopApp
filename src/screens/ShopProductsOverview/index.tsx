@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-
 import { ActivityIndicator, Button, FlatList, Text, View } from 'react-native';
-
 import { ShopProductItem } from '../../components/ShopProductItem';
 import { Colors } from '../../constants';
 import { Products } from '../../data/type';

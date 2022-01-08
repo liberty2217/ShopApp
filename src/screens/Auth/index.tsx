@@ -36,9 +36,7 @@ const formReducer = (state, action) => {
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'Auth'>;
 
-export const Auth: React.FC<Props> = (props) => {
-  const { navigation } = props;
-
+export const Auth: React.FC<Props> = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [isSignup, setIsSignup] = useState(false);

@@ -3,7 +3,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ShopOrders } from '../screens/ShopOrders';
 import { Colors } from '../constants';
 
-const Orders = createNativeStackNavigator();
+export type OrdersStackParamList = {
+  Orders: undefined;
+};
+
+const Orders = createNativeStackNavigator<OrdersStackParamList>();
 
 export const OrdersNavigator = () => {
   return (

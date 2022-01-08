@@ -12,13 +12,14 @@ import { useDispatch } from 'react-redux';
 
 export type AdminStackParamList = {
   UserProducts: undefined;
-  UserEditProduct: { productId?: string; submit?: () => any };
+  UserEditProduct: { productId?: string; submit?: () => Promise<void> };
 };
 
 const Admin = createNativeStackNavigator<AdminStackParamList>();
 
 export const AdminNavigator = () => {
   const dispatch = useDispatch();
+
   return (
     <Admin.Navigator
       screenOptions={{

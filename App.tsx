@@ -8,16 +8,10 @@
  * @format
  */
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
-
 import { store } from './src/store/app/rootReducer';
-
-import { ShopNavigator } from './src/navigation/ShopNavigator';
-import { AuthentificationNavigator } from './src/navigation/AuthNavigator';
-import { OrdersNavigator } from './src/navigation/OrdersNavigator';
 import { AppNavigator } from './src/navigation/AppNavigator';
 
 const s = StyleSheet.create({

@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useAppSelector } from '../store/app/rootReducer';
-
 import { ShopNavigator } from './ShopNavigator';
 import { AuthentificationNavigator } from './AuthNavigator';
 import { Startup } from '../screens/StartupScreen.tsx';

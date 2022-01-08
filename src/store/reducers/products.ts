@@ -1,34 +1,14 @@
-import { PRODUCTS } from '../../data/dummy-data';
 import { Products } from '../../data/type';
-import { CREATE_PRODUCT, DELETE_PRODUCT, SET_PRODUCTS, UPDATE_PRODUCT } from '../actions/products';
-
-export interface ActionDeleteProduct {
-  type: typeof DELETE_PRODUCT;
-  pid: Products['id'];
-}
-
-export interface ActionCreateProduct {
-  type: typeof CREATE_PRODUCT;
-  productData: Products;
-}
-
-export interface ActionUpdateProduct {
-  type: typeof UPDATE_PRODUCT;
-  pid: Products['id'];
-  productData: {
-    title: Products['title'];
-    description: Products['description'];
-    imageUrl: Products['imageUrl'];
-  };
-}
-
-export interface ActionSetProducts {
-  type: typeof SET_PRODUCTS;
-  products: Products[];
-  userProducts: Products[];
-}
-
-type Actions = ActionDeleteProduct | ActionCreateProduct | ActionUpdateProduct | ActionSetProducts;
+import {
+  ActionCreateProduct,
+  ActionDeleteProduct,
+  ActionSetProducts,
+  ActionUpdateProduct,
+  CREATE_PRODUCT,
+  DELETE_PRODUCT,
+  SET_PRODUCTS,
+  UPDATE_PRODUCT,
+} from '../actions/products';
 
 type InitialState = {
   availableProducts: Products[];
@@ -38,6 +18,8 @@ const initialState: InitialState = {
   availableProducts: [],
   userProducts: [],
 };
+
+type Actions = ActionDeleteProduct | ActionCreateProduct | ActionUpdateProduct | ActionSetProducts;
 
 export const productsReducer = (state = initialState, action: Actions) => {
   switch (action.type) {
@@ -63,6 +45,7 @@ export const productsReducer = (state = initialState, action: Actions) => {
         userProducts: state.userProducts.concat(newProduct),
       };
     }
+
     case UPDATE_PRODUCT: {
       const productIndex = state.userProducts.findIndex((prod) => prod.id === action.pid);
       const updatedProduct: Products = {
@@ -93,6 +76,7 @@ export const productsReducer = (state = initialState, action: Actions) => {
         availableProducts: state.availableProducts.filter((product) => product.id !== action.pid),
       };
     }
+
     default:
       return state;
   }

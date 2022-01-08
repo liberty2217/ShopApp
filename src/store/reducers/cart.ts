@@ -1,32 +1,10 @@
-import { Products } from '../../data/type';
-import { ADD_TO_CART, REMOVE_FROM_CART } from '../actions/cart';
-import { ADD_ORDER } from '../actions/orders';
-import { DELETE_PRODUCT } from '../actions/products';
-import { ActionAddOrder } from './orders';
-import { ActionDeleteProduct } from './products';
-
-export type CartItem = {
-  [key: string]: {
-    quantity: number;
-    prodPrice: Products['price'];
-    prodTitle: Products['title'];
-    sum: number;
-  };
-};
+import { ActionAddToCart, ActionRemoveFromCart, ADD_TO_CART, CartItem, REMOVE_FROM_CART } from '../actions/cart';
+import { ActionAddOrder, ADD_ORDER } from '../actions/orders';
+import { ActionDeleteProduct, DELETE_PRODUCT } from '../actions/products';
 
 interface CartReducerInitialState {
   items: CartItem;
   totalAmount: number;
-}
-
-interface ActionAddToCart {
-  type: typeof ADD_TO_CART;
-  payload: Products;
-}
-
-interface ActionRemoveFromCart {
-  type: typeof REMOVE_FROM_CART;
-  pid: Products['id'];
 }
 
 type Action = ActionAddToCart | ActionRemoveFromCart | ActionAddOrder | ActionDeleteProduct;
