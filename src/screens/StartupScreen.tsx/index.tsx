@@ -31,9 +31,12 @@ export const Startup = (props) => {
         navigation.navigate('Auth');
         return;
       }
+
+      const expirationTime = expirationDate.getTime() - new Date().getTime();
+
       // if all are valid -> then authenticate user
       navigation.navigate('Shop');
-      dispatch(authenticate(userId, token));
+      dispatch(authenticate(userId, token, expirationTime));
     };
     tryLogin();
   }, [dispatch]);

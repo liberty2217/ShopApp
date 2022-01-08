@@ -5,9 +5,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // export const SIGNUP = 'SIGNUP';
 // export const LOGIN = 'LOGIN';
 export const AUTHENTICATE = 'AUTHENTICATE';
+export const LOGOUT = 'LOGOUT';
 
-export const authenticate = (userId: string, token: string) => {
-  return { type: AUTHENTICATE, userId: userId, token: token };
+let timer;
+
+export const authenticate = (userId: string, token: string, expiryTime) => {
+  return (dispatch) => {
+    dispatch(setLogoutTimer(expiryTime));
+    dispatch({ type: AUTHENTICATE, userId: userId, token: token });
+  };
 };
 
 export type AuthAction = {
@@ -19,7 +25,29 @@ export type AuthAction = {
 type SignupResultResponse = {
   idToken: string;
   localId: string;
-  expiresIn: string; // number in string format with milliseconds to define when token gets invalid
+  expiresIn: string; // number in string
+};
+
+export const logout = () => {
+  clearLogoutTimer();
+  AsyncStorage.removeItem('userData');
+
+  return { type: LOGOUT };
+};
+
+const clearLogoutTimer = () => {
+  if (timer) {
+    clearTimeout(timer);
+  }
+};
+
+//action creator below
+const setLogoutTimer = (expirationTime) => {
+  return (dispatch) => {
+    timer = setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime);
+  };
 };
 
 // AsyncStorage
@@ -67,7 +95,7 @@ export const signup = (email: string, password: string): ThunkAction<void, RootS
     const resData: SignupResultResponse = await response.json();
 
     // dispatch({ type: SIGNUP, token: resData.idToken, userId: resData.localId });
-    dispatch(authenticate(resData.localId, resData.token));
+    dispatch(authenticate(resData.localId, resData.idToken, parseInt(resData.expiresIn) * 1000));
     const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000);
     saveDataToStorage(resData.idToken, resData.localId, expirationDate);
   };
@@ -97,7 +125,7 @@ export const login = (email: string, password: string): ThunkAction<void, RootSt
     const resData: SignupResultResponse = await response.json();
 
     // dispatch({ type: LOGIN, token: resData.idToken, userId: resData.localId });
-    dispatch(authenticate(resData.localId, resData.token));
+    dispatch(authenticate(resData.localId, resData.idToken, parseInt(resData.expiresIn) * 1000));
 
     const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000);
     saveDataToStorage(resData.idToken, resData.localId, expirationDate);

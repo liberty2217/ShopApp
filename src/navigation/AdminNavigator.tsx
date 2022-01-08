@@ -6,6 +6,8 @@ import { UserEditProduct } from '../screens/UserEditProduct';
 import { UIIconButton } from '../components/UI/UIHeaderButton';
 import pencil from '../assets/icons/pencil';
 import check from '../assets/icons/check';
+import logoutBtn from '../assets/icons/logoutBtn';
+import { logout } from '../store/actions/auth';
 
 export type AdminStackParamList = {
   UserProducts: undefined;
@@ -31,6 +33,15 @@ export const AdminNavigator = () => {
         component={UserProducts}
         options={({ navigation }) => ({
           headerRight: () => (
+            <UIIconButton
+              onPress={() => {
+                logout();
+                navigation.navigate('Auth');
+              }}
+              icon={logoutBtn({ color: Colors.primary })}
+            />
+          ),
+          headerLeft: () => (
             <UIIconButton
               onPress={() => navigation.navigate('UserEditProduct')}
               icon={pencil({ color: Colors.primary })}
