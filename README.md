@@ -42,6 +42,10 @@ after pods installation run ios emulator from root directory
 react-native run-ios
 ```
 
+## Usage
+
+You can test functionality with the following account: test01@test.ru / Qwerty12
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
