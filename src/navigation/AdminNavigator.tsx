@@ -32,9 +32,10 @@ export const AdminNavigator = () => {
       }}
     >
       <Admin.Screen
-        name="UserProducts"
+        name="User Products"
         component={UserProducts}
         options={({ navigation }) => ({
+          headerTitle: 'User Products',
           headerRight: () => {
             return (
               <UIIconButton

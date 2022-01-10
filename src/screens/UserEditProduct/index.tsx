@@ -178,7 +178,7 @@ export const UserEditProduct: React.FC<Props> = (props) => {
             keyboardType="default"
             autoCapitalize="sentences"
             autoCorrect
-            multiline
+            // multiline
             numberOfLines={3}
             onInputChange={inputChangeHandler}
             initialValue={editedProduct ? editedProduct.description : ''}
