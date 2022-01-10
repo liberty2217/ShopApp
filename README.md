@@ -1,7 +1,5 @@
 # ShopApp
 
-# ShopApp
-
 Simple react-native cli shop application including:
 
 - sign in / sign up / sign out
@@ -41,7 +39,7 @@ cd ios/ && pod install
 after pods installation run ios emulator from root directory
 
 ```bash
-cd ../ && react-native run-ios
+react-native run-ios
 ```
 
 ## License
